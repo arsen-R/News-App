@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/news_nav_graph"
+    app:startDestination="@id/recentNewsFragment">
+
+    <fragment
+        android:id="@+id/recentNewsFragment"
+        android:name="com.example.newsapp.view.fragment.RecentNewsFragment"
+        android:label="fragment_recents_news"
+        tools:layout="@layout/fragment_recents_news">
+        <action
+            android:id="@+id/action_recentNewsFragment_to_articleNewsFragment"
+            app:destination="@id/articleNewsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/headlinesNewsFragment"
+        android:name="com.example.newsapp.view.fragment.HeadlinesNewsFragment"
+        android:label="fragment_breaking_news"
+        tools:layout="@layout/fragment_breaking_news" >
+        <action
+            android:id="@+id/action_breakingNewsFragment_to_articleNewsFragment"
+            app:destination="@id/articleNewsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/favoriteNewsFragment"
+        android:name="com.example.newsapp.view.fragment.FavoriteNewsFragment"
+        android:label="fragment_favorite_news"
+        tools:layout="@layout/fragment_favorite_news">
+        <action
+            android:id="@+id/action_favoriteNewsFragment2_to_articleNewsFragment"
+            app:destination="@id/articleNewsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.newsapp.view.fragment.SettingsFragment"
+        android:label="fragment_settings"
+        tools:layout="@layout/fragment_settings" />
+
+    <fragment
+        android:id="@+id/articleNewsFragment"
+        android:name="com.example.newsapp.view.fragment.ArticleNewsFragment"
+        android:label="fragment_article_news"
+        tools:layout="@layout/fragment_article_news" />
+</navigation>
