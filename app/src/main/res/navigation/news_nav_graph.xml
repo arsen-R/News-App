@@ -36,14 +36,20 @@
     </fragment>
 
     <fragment
-        android:id="@+id/settingsFragment"
-        android:name="com.example.newsapp.view.fragment.SettingsFragment"
-        android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
-
-    <fragment
         android:id="@+id/articleNewsFragment"
         android:name="com.example.newsapp.view.fragment.ArticleNewsFragment"
         android:label="fragment_article_news"
         tools:layout="@layout/fragment_article_news" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.newsapp.view.fragment.SettingsFragment"
+        android:label="SettingsFragment" />
+    <fragment
+        android:id="@+id/foundNewsFragment"
+        android:name="com.example.newsapp.view.fragment.FoundNewsFragment"
+        android:label="FoundNewsFragment" >
+        <action
+            android:id="@+id/action_foundNewsFragment_to_articleNewsFragment"
+            app:destination="@id/articleNewsFragment" />
+    </fragment>
 </navigation>
