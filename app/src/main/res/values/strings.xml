@@ -2,7 +2,7 @@
     <string name="app_name">News App</string>
     <string name="recent_news">Recents</string>
     <string name="headlines_news">Headlines</string>
-    <string name="favorite_news">Favorite</string>
+    <string name="saved_news">Save News</string>
     <string name="settings_app">Settings</string>
     <string name="profile_user">Profile</string>
     <string name="search_news">Search</string>

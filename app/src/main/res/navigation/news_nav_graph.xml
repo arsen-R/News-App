@@ -27,9 +27,9 @@
 
     <fragment
         android:id="@+id/favoriteNewsFragment"
-        android:name="com.example.newsapp.view.fragment.FavoriteNewsFragment"
+        android:name="com.example.newsapp.view.fragment.SavedNewsFragment"
         android:label="fragment_favorite_news"
-        tools:layout="@layout/fragment_favorite_news">
+        tools:layout="@layout/fragment_saved_news">
         <action
             android:id="@+id/action_favoriteNewsFragment2_to_articleNewsFragment"
             app:destination="@id/articleNewsFragment" />
@@ -45,11 +45,12 @@
         android:name="com.example.newsapp.view.fragment.SettingsFragment"
         android:label="SettingsFragment" />
     <fragment
-        android:id="@+id/foundNewsFragment"
-        android:name="com.example.newsapp.view.fragment.FoundNewsFragment"
-        android:label="FoundNewsFragment" >
+        android:id="@+id/searchFragment"
+        android:name="com.example.newsapp.view.fragment.SearchFragment"
+        android:label="fragment_search"
+        tools:layout="@layout/fragment_search" >
         <action
-            android:id="@+id/action_foundNewsFragment_to_articleNewsFragment"
+            android:id="@+id/action_searchFragment_to_articleNewsFragment"
             app:destination="@id/articleNewsFragment" />
     </fragment>
 </navigation>
