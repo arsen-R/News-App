@@ -3,9 +3,10 @@ package com.example.newsapp.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
 import java.util.List;
 
-public class ArticleNews {
+public class ArticleNews implements Serializable {
     @SerializedName("title")
     @Expose
     private String title;
@@ -45,6 +46,25 @@ public class ArticleNews {
     @SerializedName("language")
     @Expose
     private String language;
+
+    @Override
+    public String toString() {
+        return "ArticleNews{" +
+                "title='" + title + '\'' +
+                ", link='" + link + '\'' +
+                ", keywords=" + keywords +
+                ", creator=" + creator +
+                ", videoUrl='" + videoUrl + '\'' +
+                ", description='" + description + '\'' +
+                ", content='" + content + '\'' +
+                ", pubDate='" + pubDate + '\'' +
+                ", imageUrl='" + imageUrl + '\'' +
+                ", sourceId='" + sourceId + '\'' +
+                ", country=" + country +
+                ", category=" + category +
+                ", language='" + language + '\'' +
+                "}\n";
+    }
 
     public ArticleNews(String title, String link,
                        List<String> keywords, List<String> creator,

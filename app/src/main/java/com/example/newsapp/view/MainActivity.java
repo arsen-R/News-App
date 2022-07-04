@@ -2,27 +2,67 @@ package com.example.newsapp.view;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.navigation.NavController;
+import androidx.navigation.NavDirections;
+import androidx.navigation.fragment.NavHostFragment;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.SearchView;
+import android.widget.Toast;
 
+import com.example.newsapp.NewsNavGraphDirections;
 import com.example.newsapp.R;
-import com.example.newsapp.view.fragment.MainFragment;
-import com.example.newsapp.view.fragment.SearchFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class MainActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigationView;
+    private Toolbar toolbar;
+    private AppBarConfiguration appBarConfiguration;
+    private NavController navController;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        toolbar = findViewById(R.id.toolbar);
+        bottomNavigationView = findViewById(R.id.bottomNavigationView);
 
-        getSupportFragmentManager().beginTransaction()
-                .add(R.id.mainFrameLayout, new MainFragment())
-                .commit();
+        NavHostFragment navHostFragment = (NavHostFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.newsNavHostFragment);
+
+        navController = navHostFragment.getNavController();
+
+
+        appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.recentNewsFragment,
+                R.id.headlinesNewsFragment,
+                R.id.savedNewsFragment,
+                R.id.settingsFragment,
+                R.id.profileFragment
+        ).build();
+
+        setSupportActionBar(toolbar);
+        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        NavigationUI.setupWithNavController(bottomNavigationView, navController);
+
+        navController.addOnDestinationChangedListener((navController, navDestination, bundle) -> {
+            if (navDestination.getId() == R.id.articleNewsFragment) {
+                bottomNavigationView.setVisibility(View.GONE);
+            } else if (navDestination.getId() == R.id.searchFragment) {
+                bottomNavigationView.setVisibility(View.GONE);
+            } else {
+                bottomNavigationView.setVisibility(View.VISIBLE);
+            }
+        });
     }
 
     @Override
@@ -37,12 +77,17 @@ public class MainActivity extends AppCompatActivity {
         int menuId = item.getItemId();
         switch (menuId) {
             case R.id.searchNews:
-                getSupportFragmentManager().beginTransaction()
-                        .addToBackStack(null)
-                        .replace(R.id.mainFrameLayout, new SearchFragment())
-                        .commit();
+                Toast.makeText(this, "Search", Toast.LENGTH_SHORT).show();
+                NavDirections action = NewsNavGraphDirections.actionGlobalSearchFragment();
+                navController.navigate(action);
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        return navController.navigateUp() || super.onSupportNavigateUp();
     }
 }

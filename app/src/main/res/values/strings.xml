@@ -2,10 +2,17 @@
     <string name="app_name">News App</string>
     <string name="recent_news">Recents</string>
     <string name="headlines_news">Headlines</string>
-    <string name="saved_news">Save News</string>
+    <string name="saved_news">Saved</string>
     <string name="settings_app">Settings</string>
     <string name="profile_user">Profile</string>
     <string name="search_news">Search</string>
+    <string name="empty_label"></string>
+    <string name="saved_news_label">Saved News</string>
+    <string name="share_article">Share Article</string>
+    <string name="save_article">Save Article</string>
+    <string name="go_to_original_web_page">View original web page</string>
+    <string name="send_feedback">Send feedback</string>
+    <string name="search_hint">Search</string>
 
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>

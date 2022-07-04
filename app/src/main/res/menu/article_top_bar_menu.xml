@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/shareArticleNews"
+        android:enabled="true"
+        android:icon="@drawable/ic_share_24"
+        app:showAsAction="always"
+        android:title="@string/share_article" />
+    <item
+        android:id="@+id/saveArticle"
+        android:enabled="true"
+        android:icon="@drawable/ic_bookmark_24"
+        app:showAsAction="always"
+        android:title="@string/save_article" />
+    <item
+        android:id="@+id/go_to_original_web_page"
+        android:enabled="true"
+        android:icon="@drawable/ic_web_24"
+        app:showAsAction="always"
+        android:title="@string/go_to_original_web_page" />
+
+    <item
+        android:id="@+id/send_feedback"
+        android:enabled="true"
+        android:icon="@drawable/ic_feedback_24"
+        app:showAsAction="always"
+        android:title="@string/send_feedback" />
+</menu>

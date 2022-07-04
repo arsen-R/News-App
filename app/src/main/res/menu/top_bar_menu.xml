@@ -6,5 +6,5 @@
         android:enabled="true"
         android:title="@string/search_news"
         android:icon="@drawable/ic_search_24"
-        app:showAsAction="always"/>
+        app:showAsAction="collapseActionView|ifRoom"/>
 </menu>

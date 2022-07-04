@@ -13,7 +13,7 @@
         android:layout_height="match_parent">
 
         <ImageView
-            android:id="@+id/imageNews"
+            android:id="@+id/imageArticleNews"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
@@ -35,9 +35,9 @@
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="@id/imageNews"
-            app:layout_constraintStart_toStartOf="@id/imageNews"
-            app:layout_constraintTop_toBottomOf="@id/imageNews"
+            app:layout_constraintEnd_toEndOf="@id/imageArticleNews"
+            app:layout_constraintStart_toStartOf="@id/imageArticleNews"
+            app:layout_constraintTop_toBottomOf="@id/imageArticleNews"
             tools:text="Марсохід NASA показав уламки космічного корабля на Червоній планеті - ВСВІТІ" />
 
         <TextView

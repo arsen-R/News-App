@@ -15,11 +15,15 @@ public class ResultNews {
     @SerializedName("results")
     @Expose
     private List<ArticleNews> articleNews;
+    @SerializedName("nextPage")
+    @Expose
+    private int nextPage;
 
-    public ResultNews(String status, int totalResults, List<ArticleNews> articleNews) {
+    public ResultNews(String status, int totalResults, List<ArticleNews> articleNews, int nextPage) {
         this.status = status;
         this.totalResults = totalResults;
         this.articleNews = articleNews;
+        this.nextPage = nextPage;
     }
 
     public String getStatus() {
@@ -44,5 +48,23 @@ public class ResultNews {
 
     public void setArticleNews(List<ArticleNews> articleNews) {
         this.articleNews = articleNews;
+    }
+
+    public int getNextPage() {
+        return nextPage;
+    }
+
+    public void setNextPage(int nextPage) {
+        this.nextPage = nextPage;
+    }
+
+    @Override
+    public String toString() {
+        return "ResultNews{" +
+                "status='" + status + '\'' +
+                ", totalResults=" + totalResults +
+                ", articleNews=" + articleNews +
+                ", nextPage=" + nextPage +
+                '}';
     }
 }

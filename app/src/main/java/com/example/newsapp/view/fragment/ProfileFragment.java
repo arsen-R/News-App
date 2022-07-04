@@ -13,8 +13,9 @@ import android.view.ViewGroup;
 
 import com.example.newsapp.R;
 
+public class ProfileFragment extends Fragment {
 
-public class SavedNewsFragment extends Fragment {
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,7 +26,7 @@ public class SavedNewsFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_saved_news, container, false);
+        return inflater.inflate(R.layout.fragment_profile, container, false);
     }
 
     @Override
