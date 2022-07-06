@@ -1,14 +1,6 @@
 package com.example.newsapp.view.fragment;
 
 import android.os.Bundle;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.navigation.NavDirections;
-import androidx.navigation.Navigation;
-
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -19,8 +11,11 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
 import com.example.newsapp.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.snackbar.Snackbar;
 
 
@@ -43,7 +38,7 @@ public class ArticleNewsFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         String link = getArguments().getString("articleNewsLink");
-        Log.d("ArticleNews", link);
+
         articleWebView = view.findViewById(R.id.webView);
         articleWebView.loadUrl(link);
         WebSettings webSettings = articleWebView.getSettings();

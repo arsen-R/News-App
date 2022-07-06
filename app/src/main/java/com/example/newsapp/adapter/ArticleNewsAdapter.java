@@ -13,30 +13,32 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.newsapp.R;
 import com.example.newsapp.model.ArticleNews;
-import com.example.newsapp.model.ResultNews;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 
-public class ArticleNewsAdapter extends RecyclerView.Adapter<ArticleNewsAdapter.ArticleNewsViewHolder>{
-    private ResultNews resultNews;
+public class ArticleNewsAdapter extends RecyclerView.Adapter<ArticleNewsAdapter.ArticleNewsViewHolder> {
+    private List<ArticleNews> articleNewsList = new ArrayList<>();
     private View.OnClickListener onClickListener;
+    private LayoutInflater layoutInflater;
 
-    public ArticleNewsAdapter(ResultNews articleNews) {
-        this.resultNews = articleNews;
+    public ArticleNewsAdapter(Context context) {
+        layoutInflater = LayoutInflater.from(context);
     }
 
     @NonNull
     @Override
     public ArticleNewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.news_list_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.news_list_item, parent, false);
         return new ArticleNewsViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ArticleNewsViewHolder holder, int position) {
-        ArticleNews articleNews = resultNews.getArticleNews().get(position);
+        ArticleNews articleNews = articleNewsList.get(position);
         holder.textTitleNews.setText(articleNews.getTitle());
-        holder.textSourceNews.setText(articleNews.getSourceId().substring(0,1).toUpperCase(Locale.ROOT) + articleNews.getSourceId().substring(1).toLowerCase(Locale.ROOT));
+        holder.textSourceNews.setText(articleNews.getSourceId().substring(0, 1).toUpperCase(Locale.ROOT) + articleNews.getSourceId().substring(1).toLowerCase(Locale.ROOT));
         holder.textPublishedNews.setText(articleNews.getPubDate());
         Glide.with(holder.imageArticleNews.getContext())
                 .load(articleNews.getImageUrl())
@@ -45,7 +47,7 @@ public class ArticleNewsAdapter extends RecyclerView.Adapter<ArticleNewsAdapter.
 
     @Override
     public int getItemCount() {
-        return resultNews.getArticleNews().size();
+        return articleNewsList.size();
     }
 
     public void setOnItemClickListener(View.OnClickListener onItemClickListener) {
@@ -57,6 +59,7 @@ public class ArticleNewsAdapter extends RecyclerView.Adapter<ArticleNewsAdapter.
         TextView textTitleNews;
         TextView textSourceNews;
         TextView textPublishedNews;
+
         public ArticleNewsViewHolder(View view) {
             super(view);
             imageArticleNews = view.findViewById(R.id.imageArticleNews);
@@ -66,5 +69,14 @@ public class ArticleNewsAdapter extends RecyclerView.Adapter<ArticleNewsAdapter.
             view.setTag(this);
             view.setOnClickListener(onClickListener);
         }
+    }
+
+    public List<ArticleNews> getArticleNewsList() {
+        return articleNewsList;
+    }
+
+    public void setArticleNewsList(List<ArticleNews> articleNewsList) {
+        this.articleNewsList = articleNewsList;
+        notifyDataSetChanged();
     }
 }
