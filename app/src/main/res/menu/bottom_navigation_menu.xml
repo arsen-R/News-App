@@ -16,8 +16,8 @@
         android:icon="@drawable/ic_bookmark_24"
         android:title="@string/saved_news" />
     <item
-        android:id="@+id/profileFragment"
+        android:id="@+id/settingsFragment"
         android:enabled="true"
         android:icon="@drawable/ic_person_24"
-        android:title="@string/profile_user" />
+        android:title="@string/settings_app" />
 </menu>

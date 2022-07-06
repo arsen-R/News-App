@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
                 R.id.headlinesNewsFragment,
                 R.id.savedNewsFragment,
                 R.id.settingsFragment,
-                R.id.profileFragment
+                R.id.settingsFragment
         ).build();
 
         setSupportActionBar(toolbar);
