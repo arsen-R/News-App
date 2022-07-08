@@ -27,13 +27,17 @@
         android:label="@string/empty_label"
         tools:layout="@layout/fragment_article_news">
         <argument
-            android:name="articleNewsLink"
-            app:argType="string" />
+            android:name="articleNews"
+            app:argType="com.example.newsapp.model.ArticleNews" />
         <action
             android:id="@+id/action_articleNewsFragment_to_recentNewsFragment3"
             app:destination="@id/recentNewsFragment"
             app:popUpTo="@id/recentNewsFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_articleNewsFragment_to_savedNewsFragment"
+            app:destination="@id/savedNewsFragment"
+            app:popUpTo="@id/savedNewsFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
@@ -48,6 +52,10 @@
         android:id="@+id/savedNewsFragment"
         android:name="com.example.newsapp.view.fragment.SavedNewsFragment"
         android:label="@string/saved_news_label"
-        tools:layout="@layout/fragment_saved_news" />
+        tools:layout="@layout/fragment_saved_news" >
+        <action
+            android:id="@+id/action_savedNewsFragment_to_articleNewsFragment"
+            app:destination="@id/articleNewsFragment" />
+    </fragment>
     <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" />
 </navigation>
