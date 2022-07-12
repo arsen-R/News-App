@@ -4,7 +4,7 @@
     <item
         android:id="@+id/searchNews"
         android:enabled="true"
-        android:title="@string/search_news"
         android:icon="@drawable/ic_search_24"
-        app:showAsAction="collapseActionView|ifRoom"/>
+        android:title="@string/search_news"
+        app:showAsAction="ifRoom|collapseActionView" />
 </menu>

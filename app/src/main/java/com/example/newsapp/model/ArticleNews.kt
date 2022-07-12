@@ -10,7 +10,8 @@ import java.io.Serializable
 @Keep
 @Entity(tableName = "article_news")
 data class ArticleNews(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
+    val id: Long,
     @SerializedName("title")
     @Expose
     val title: String,
@@ -28,7 +29,7 @@ data class ArticleNews(
     val videoUrl: String? = null,
     @SerializedName("description")
     @Expose
-    val description: String,
+    val description: String? = null,
     @SerializedName("content")
     @Expose
     val content: String? = null,
@@ -51,9 +52,10 @@ data class ArticleNews(
     @Expose
     val language: String
 ) : Serializable {
+
     override fun hashCode(): Int {
         var result = title.hashCode()
-        if(keywords.isNullOrEmpty() || creator.isNullOrEmpty() || imageUrl.isNullOrEmpty() || content.isNullOrEmpty() || videoUrl.isNullOrEmpty()){
+        if(keywords.isNullOrEmpty() || description.isNullOrEmpty() || creator.isNullOrEmpty() || imageUrl.isNullOrEmpty() || content.isNullOrEmpty() || videoUrl.isNullOrEmpty()){
             result = 31 * result + title.hashCode()
         }
         return result

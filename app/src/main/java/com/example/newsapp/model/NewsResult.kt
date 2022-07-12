@@ -12,7 +12,7 @@ data class NewsResult(
     val totalResults: Int,
     @SerializedName("results")
     @Expose
-    val articleNews: List<ArticleNews>,
+    val articleNews: MutableList<ArticleNews>,
     @SerializedName("nextPage")
     @Expose
     val nextPage: Int

@@ -11,6 +11,7 @@ interface ArticleNewsService {
     fun getAllArticleNews(
         @Query("apikey") apikey: String = "pub_86977c4beb3733e38eee74f8b77a4c2c932a",
         @Query("category") category: String = "top",
-        @Query("country") country: String = "us"
+        @Query("country") country: String = "us",
+        @Query("page") pageNumber: Int = 0
     ): Single<NewsResult>
 }

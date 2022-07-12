@@ -2,6 +2,7 @@ package com.example.newsapp.view.fragment
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
+import android.content.res.Resources
 import android.net.Uri
 import android.webkit.WebView
 import android.os.Bundle
@@ -21,6 +22,7 @@ import com.google.android.material.snackbar.Snackbar
 
 class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
     private val articleNews: ArticleNews by lazy { arguments?.getSerializable("articleNews") as ArticleNews}
+    private lateinit var resource: Resources
 
     private val newsViewModel: NewsViewModel by viewModels {
         NewsViewModelFactory((activity?.application as NewsApplication).repository)
@@ -32,6 +34,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        resource = view.context.resources
 
         val articleWebView: WebView = view.findViewById(R.id.webView)
 
@@ -57,7 +60,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
             }
             R.id.saveArticle -> {
                 newsViewModel.saveArticle(articleNews)
-                Snackbar.make(view!!, "Save Article", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(view!!, resource.getString(R.string.save_article), Snackbar.LENGTH_LONG).show()
                 return true
             }
             R.id.go_to_original_web_page -> {
@@ -65,7 +68,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
                 return true
             }
             R.id.send_feedback -> {
-                sendFeedback(arrayOf("arsen240302@gmail.com"), "Надіслати відгук")
+                sendFeedback(arrayOf("arsen240302@gmail.com"), resource.getString(R.string.send_feedback))
                 return true
             }
         }

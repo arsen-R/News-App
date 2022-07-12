@@ -5,6 +5,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
@@ -12,11 +14,27 @@ import com.example.newsapp.adapter.ArticleNewsAdapter.ArticleNewsViewHolder
 import com.example.newsapp.model.ArticleNews
 
 class ArticleNewsAdapter() : RecyclerView.Adapter<ArticleNewsViewHolder>() {
-    var articleNewsList: List<ArticleNews> = listOf()
-        set (value) {
-            field = value
-            notifyDataSetChanged()
+    private val diffCallBack: DiffUtil.ItemCallback<ArticleNews> =
+        object : DiffUtil.ItemCallback<ArticleNews>() {
+            override fun areItemsTheSame(oldItem: ArticleNews, newItem: ArticleNews): Boolean {
+                return oldItem.link == newItem.link
+            }
+
+            override fun areContentsTheSame(oldItem: ArticleNews, newItem: ArticleNews): Boolean {
+                return oldItem == newItem
+            }
         }
+
+    private val articleListDiffer: AsyncListDiffer<ArticleNews> =
+        AsyncListDiffer(this, diffCallBack)
+
+    fun submitList(data: List<ArticleNews>) {
+        articleListDiffer.submitList(data)
+    }
+
+    fun getArticleNewsItem(position: Int): ArticleNews {
+        return articleListDiffer.currentList[position]
+    }
 
     private var onClickListener: View.OnClickListener? = null
 
@@ -27,7 +45,7 @@ class ArticleNewsAdapter() : RecyclerView.Adapter<ArticleNewsViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: ArticleNewsViewHolder, position: Int) {
-        val articleNews = articleNewsList[position]
+        val articleNews = articleListDiffer.currentList[position]
         with(holder) {
             textTitleNews.text = articleNews.title
             textSourceNews.text =
@@ -41,7 +59,7 @@ class ArticleNewsAdapter() : RecyclerView.Adapter<ArticleNewsViewHolder>() {
     }
 
     override fun getItemCount(): Int {
-        return articleNewsList.size
+        return articleListDiffer.currentList.size
     }
 
     fun setOnItemClickListener(onItemClickListener: View.OnClickListener?) {

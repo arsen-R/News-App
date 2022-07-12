@@ -6,8 +6,9 @@ import com.example.newsapp.model.ArticleNews
 import com.example.newsapp.utils.Constants
 
 class NewsRepository(private val articleNewsService: ArticleNewsService, private val database: ArticleDatabase) {
-    fun getArticleNews(category: String, country: String) =
-        articleNewsService.getAllArticleNews(Constants.API_KEY,category, country)
+
+    fun getArticleNews(category: String, country: String, pageNumber: Int) =
+        articleNewsService.getAllArticleNews(Constants.API_KEY,category, country, pageNumber)
 
 
     fun getAllSavedArticleNews() = database.articleDao().getAllArticleNews()
