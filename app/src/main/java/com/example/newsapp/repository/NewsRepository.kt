@@ -7,7 +7,7 @@ import com.example.newsapp.utils.Constants
 
 class NewsRepository(private val articleNewsService: ArticleNewsService, private val database: ArticleDatabase) {
 
-    fun getArticleNews(category: String, country: String, pageNumber: Int) =
+    suspend fun getArticleNews(category: String, country: String, pageNumber: Int) =
         articleNewsService.getAllArticleNews(Constants.API_KEY,category, country, pageNumber)
 
 

@@ -21,6 +21,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
     private val newsViewModel: NewsViewModel by viewModels {
         NewsViewModelFactory((activity?.application as NewsApplication).repository)
     }
+
     private val onItemClickListener = View.OnClickListener { view: View ->
         val viewHolder = view.tag as RecyclerView.ViewHolder
         val position = viewHolder.adapterPosition
@@ -68,7 +69,11 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
                 val position = viewHolder.adapterPosition
                 val articleNews = articleNewsAdapter.getArticleNewsItem(position)
                 newsViewModel.deleteArticleNews(articleNews)
-                Snackbar.make(view, resource.getString(R.string.delete_article), Snackbar.LENGTH_LONG)
+                Snackbar.make(
+                    view,
+                    resource.getString(R.string.delete_article),
+                    Snackbar.LENGTH_LONG
+                )
                     .setAction(resource.getString(R.string.undo)) {
                         newsViewModel.saveArticle(articleNews)
                     }

@@ -4,18 +4,22 @@ import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
-import android.webkit.WebView
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.*
-import com.example.newsapp.R
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.webkit.CookieManager
+import android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
+import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.navArgs
 import com.example.newsapp.NewsApplication
+import com.example.newsapp.R
 import com.example.newsapp.model.ArticleNews
-import com.example.newsapp.view.MainActivity
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.example.newsapp.viewmodel.NewsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -43,6 +47,10 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
             articleNews?.let { loadUrl(it.link) }
             val webSettings = settings
             webSettings.javaScriptEnabled = true
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                webSettings.mixedContentMode = MIXED_CONTENT_ALWAYS_ALLOW
+                CookieManager.getInstance().setAcceptThirdPartyCookies(articleWebView, true)
+            }
         }
 
     }
@@ -60,7 +68,8 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
             }
             R.id.saveArticle -> {
                 newsViewModel.saveArticle(articleNews)
-                Snackbar.make(view!!, resource.getString(R.string.save_article), Snackbar.LENGTH_LONG).show()
+                Snackbar.make(view!!, resource.getString(R.string.save_article),
+                    Snackbar.LENGTH_LONG).show()
                 return true
             }
             R.id.go_to_original_web_page -> {

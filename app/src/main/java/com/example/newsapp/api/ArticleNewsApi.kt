@@ -9,7 +9,6 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object ArticleNewsApi {
     private val retrofit = Retrofit.Builder()
-        .addCallAdapterFactory(RxJava3CallAdapterFactory.create())
         .addConverterFactory(GsonConverterFactory.create())
         .baseUrl(Constants.BASE_URL)
         .build()

@@ -104,35 +104,34 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
 
         articleNewsAdapter.setOnItemClickListener(onItemClickListener)
 
-        newsViewModel.getNewsMutableLiveData("top", "ua")
-            .observe(viewLifecycleOwner) { response ->
-                when (response) {
-                    is Resource.Success -> {
-                        hideProgressBar()
-                        hideError()
-                        response?.data.let { newsResponse ->
-                            newsResponse?.articleNews
-                                ?.let { articleNewsAdapter.submitList(it.toList()) }
+        newsViewModel.newsMutableLiveData.observe(viewLifecycleOwner) { response ->
+            when (response) {
+                is Resource.Success -> {
+                    hideProgressBar()
+                    hideError()
+                    response?.data.let { newsResponse ->
+                        newsResponse?.articleNews
+                            ?.let { articleNewsAdapter.submitList(it.toList()) }
 
-                            val totalPages = (newsResponse?.totalResults?.div(Constants.QUERY_PAGE_SIZE))
-                            isLastPage = newsViewModel.articleNewsPage == totalPages
+                        val totalPages = (newsResponse?.totalResults?.div(Constants.QUERY_PAGE_SIZE)?.plus(2))
+                        isLastPage = newsViewModel.articleNewsPage == totalPages
 
-                            if (isLastPage) {
-                                recentNewsRecyclerView.setPadding(0,0,0,0)
-                            }
+                        if (isLastPage) {
+                            recentNewsRecyclerView.setPadding(0,0,0,0)
                         }
-                    }
-                    is Resource.Error -> {
-                        hideProgressBar()
-                        response?.message?.let {
-                            showError()
-                        }
-                    }
-                    is Resource.Loading -> {
-                        showProgressBar()
                     }
                 }
+                is Resource.Error -> {
+                    hideProgressBar()
+                    response?.message?.let {
+                        showError()
+                    }
+                }
+                is Resource.Loading -> {
+                    showProgressBar()
+                }
             }
+        }
     }
 
 }

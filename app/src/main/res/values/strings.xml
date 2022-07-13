@@ -16,6 +16,8 @@
     <string name="delete_article">Article removed</string>
     <string name="undo">Undo</string>
     <string name="there_is_no_news">There is no news!</string>
+
+
     <!-- Preference Titles -->
     <string name="messages_header">Messages</string>
     <string name="sync_header">Sync</string>

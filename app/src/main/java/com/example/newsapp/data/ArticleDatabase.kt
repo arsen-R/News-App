@@ -5,7 +5,7 @@ import androidx.room.*
 import com.example.newsapp.model.ArticleNews
 import com.example.newsapp.utils.Constants
 
-@Database(entities = [ArticleNews::class], version = 3, exportSchema = false)
+@Database(entities = [ArticleNews::class], version = 1, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase : RoomDatabase() {
     companion object {
