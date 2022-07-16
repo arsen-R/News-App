@@ -1,5 +1,6 @@
 package com.example.newsapp.data
 
+import android.icu.text.CaseMap
 import androidx.lifecycle.LiveData
 import androidx.room.*
 import com.example.newsapp.model.ArticleNews

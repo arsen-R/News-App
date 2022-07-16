@@ -7,7 +7,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
@@ -32,14 +32,17 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
         progressBar.visibility = View.INVISIBLE
         isLoading = false
     }
+
     private fun showProgressBar() {
         progressBar.visibility = View.VISIBLE
         isLoading = true
     }
+
     private fun hideError() {
         textMessage.visibility = View.INVISIBLE
         isError = false
     }
+
     private fun showError() {
         textMessage.visibility = View.VISIBLE
         isError = true
@@ -55,6 +58,7 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
+
             val layoutManager = recyclerView.layoutManager as LinearLayoutManager
             val firstFirstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
             val visibleItemCount = layoutManager.childCount
@@ -65,8 +69,9 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
             val isAtLastItem = firstFirstVisibleItemPosition + visibleItemCount >= totalItemCount
             val isNotBeginItem = firstFirstVisibleItemPosition >= 0
             val isTotalMoreCountItem = totalItemCount >= Constants.QUERY_PAGE_SIZE
-            val shouldPaginate = isNotError && isNotIsNotLoadingAndIsLastPage && isAtLastItem && isNotBeginItem
-                    && isTotalMoreCountItem && isScrolling
+            val shouldPaginate =
+                isNotError && isNotIsNotLoadingAndIsLastPage && isAtLastItem && isNotBeginItem
+                        && isTotalMoreCountItem && isScrolling
 
             if (shouldPaginate) {
                 newsViewModel.getNewsMutableLiveData("top", "ua")
@@ -88,7 +93,7 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
         val action =
             RecentNewsFragmentDirections.actionRecentNewsFragmentToArticleNewsFragment(articleNews)
 
-        findNavController(view).navigate(action)
+        findNavController().navigate(action)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -104,20 +109,23 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
 
         articleNewsAdapter.setOnItemClickListener(onItemClickListener)
 
+        newsViewModel.getNewsMutableLiveData("top", "ua")
+
         newsViewModel.newsMutableLiveData.observe(viewLifecycleOwner) { response ->
             when (response) {
                 is Resource.Success -> {
                     hideProgressBar()
                     hideError()
-                    response?.data.let { newsResponse ->
-                        newsResponse?.articleNews
-                            ?.let { articleNewsAdapter.submitList(it.toList()) }
+                    response.data?.let { newsResponse ->
+                        articleNewsAdapter.submitList(newsResponse.articleNews.toList())
 
-                        val totalPages = (newsResponse?.totalResults?.div(Constants.QUERY_PAGE_SIZE)?.plus(2))
+                        val totalPages =
+                            (newsResponse.totalResults / Constants.QUERY_PAGE_SIZE + 2)
+
                         isLastPage = newsViewModel.articleNewsPage == totalPages
 
                         if (isLastPage) {
-                            recentNewsRecyclerView.setPadding(0,0,0,0)
+                            recentNewsRecyclerView.setPadding(0, 0, 0, 0)
                         }
                     }
                 }
@@ -133,5 +141,4 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
             }
         }
     }
-
 }

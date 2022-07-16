@@ -5,12 +5,12 @@ import androidx.room.*
 import com.example.newsapp.model.ArticleNews
 import com.example.newsapp.utils.Constants
 
-@Database(entities = [ArticleNews::class], version = 1, exportSchema = false)
+@Database(entities = [ArticleNews::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class)
 abstract class ArticleDatabase : RoomDatabase() {
     companion object {
         private var database: ArticleDatabase? = null
-        private const val NAME_DATABASE = "article_news.db"
+        private const val NAME_DATABASE = "articles_news.db"
         private val LOCK = Any()
 
         fun getInstance(context: Context): ArticleDatabase {

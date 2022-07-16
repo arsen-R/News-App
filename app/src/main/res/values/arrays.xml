@@ -9,4 +9,16 @@
         <item>reply</item>
         <item>reply_all</item>
     </string-array>
+
+    <string-array name="articles_category">
+        <item>Business</item>
+        <item>Entertainment</item>
+        <item>Environment</item>
+        <item>Food</item>
+        <item>Health</item>
+        <item>Politics</item>
+        <item>Science</item>
+        <item>Sports</item>
+        <item>Technology</item>
+    </string-array>
 </resources>

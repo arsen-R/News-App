@@ -8,8 +8,7 @@ import com.example.newsapp.utils.Constants
 class NewsRepository(private val articleNewsService: ArticleNewsService, private val database: ArticleDatabase) {
 
     suspend fun getArticleNews(category: String, country: String, pageNumber: Int) =
-        articleNewsService.getAllArticleNews(Constants.API_KEY,category, country, pageNumber)
-
+        articleNewsService.getAllArticleNews(category, country, pageNumber)
 
     fun getAllSavedArticleNews() = database.articleDao().getAllArticleNews()
 

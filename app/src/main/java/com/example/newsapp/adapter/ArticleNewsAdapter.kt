@@ -13,7 +13,7 @@ import com.example.newsapp.R
 import com.example.newsapp.adapter.ArticleNewsAdapter.ArticleNewsViewHolder
 import com.example.newsapp.model.ArticleNews
 
-class ArticleNewsAdapter() : RecyclerView.Adapter<ArticleNewsViewHolder>() {
+class ArticleNewsAdapter : RecyclerView.Adapter<ArticleNewsViewHolder>() {
     private val diffCallBack: DiffUtil.ItemCallback<ArticleNews> =
         object : DiffUtil.ItemCallback<ArticleNews>() {
             override fun areItemsTheSame(oldItem: ArticleNews, newItem: ArticleNews): Boolean {

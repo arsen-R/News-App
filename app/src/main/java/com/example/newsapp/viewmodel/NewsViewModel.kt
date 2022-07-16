@@ -16,10 +16,6 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
     var articleNewsPage: Int = 0
     private var newsResult: NewsResult? = null
 
-    init {
-        getNewsMutableLiveData("top", "ua")
-    }
-
     fun getNewsMutableLiveData(category: String, country: String) = viewModelScope.launch {
         loadArticleNews(category, country)
     }
@@ -40,6 +36,7 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
         }
         return Resource.Error(response.message())
     }
+
     private suspend fun loadArticleNews(category: String, country: String) {
         newsMutableLiveData.postValue(Resource.Loading())
         try {
@@ -52,13 +49,9 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
         }
     }
 
-    fun saveArticle(articleNews: ArticleNews) {
-        repository.addArticleNews(articleNews)
-    }
+    fun saveArticle(articleNews: ArticleNews) = repository.addArticleNews(articleNews)
 
     fun getSavedArticles() = repository.getAllSavedArticleNews()
 
-    fun deleteArticleNews(articleNews: ArticleNews) {
-        repository.deleteArticleNews(articleNews)
-    }
+    fun deleteArticleNews(articleNews: ArticleNews) = repository.deleteArticleNews(articleNews)
 }

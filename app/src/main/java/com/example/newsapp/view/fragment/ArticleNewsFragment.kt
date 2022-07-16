@@ -2,7 +2,6 @@ package com.example.newsapp.view.fragment
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -25,20 +24,20 @@ import com.example.newsapp.viewmodel.NewsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
-    private val articleNews: ArticleNews by lazy { arguments?.getSerializable("articleNews") as ArticleNews}
-    private lateinit var resource: Resources
+    private val articleNews: ArticleNews? by lazy { arguments?.getSerializable("articleNews") as ArticleNews }
 
     private val newsViewModel: NewsViewModel by viewModels {
         NewsViewModelFactory((activity?.application as NewsApplication).repository)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        resource = view.context.resources
 
         val articleWebView: WebView = view.findViewById(R.id.webView)
 
@@ -52,7 +51,6 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
                 CookieManager.getInstance().setAcceptThirdPartyCookies(articleWebView, true)
             }
         }
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,21 +61,26 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.shareArticleNews -> {
-                articleNews?.let { shareArticleNews(it.link) }
+                articleNews?.link?.let { shareArticleNews(it) }
                 return true
             }
             R.id.saveArticle -> {
-                newsViewModel.saveArticle(articleNews)
-                Snackbar.make(view!!, resource.getString(R.string.save_article),
-                    Snackbar.LENGTH_LONG).show()
+                    articleNews?.let { newsViewModel.saveArticle(it) }
+                    Snackbar.make(
+                        view!!, resources.getString(R.string.save_article),
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 return true
             }
             R.id.go_to_original_web_page -> {
-                articleNews?.let { goToOriginalWebPage(it.link) }
+                articleNews?.link?.let { goToOriginalWebPage(it) }
                 return true
             }
             R.id.send_feedback -> {
-                sendFeedback(arrayOf("arsen240302@gmail.com"), resource.getString(R.string.send_feedback))
+                sendFeedback(
+                    arrayOf("arsen240302@gmail.com"),
+                    resources.getString(R.string.send_feedback)
+                )
                 return true
             }
         }

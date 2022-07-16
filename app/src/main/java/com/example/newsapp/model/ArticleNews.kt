@@ -14,7 +14,7 @@ data class ArticleNews(
     val id: Long,
     @SerializedName("title")
     @Expose
-    val title: String,
+    val title: String? = null,
     @SerializedName("link")
     @Expose
     val link: String,
@@ -55,7 +55,7 @@ data class ArticleNews(
 
     override fun hashCode(): Int {
         var result = title.hashCode()
-        if(keywords.isNullOrEmpty() || description.isNullOrEmpty() || creator.isNullOrEmpty() || imageUrl.isNullOrEmpty() || content.isNullOrEmpty() || videoUrl.isNullOrEmpty()){
+        if(title.isNullOrEmpty() || keywords.isNullOrEmpty() || description.isNullOrEmpty() || creator.isNullOrEmpty() || imageUrl.isNullOrEmpty() || content.isNullOrEmpty() || videoUrl.isNullOrEmpty()){
             result = 31 * result + title.hashCode()
         }
         return result

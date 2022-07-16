@@ -5,7 +5,7 @@ import android.view.Menu
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
@@ -31,7 +31,38 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         val action =
             SavedNewsFragmentDirections.actionSavedNewsFragmentToArticleNewsFragment(articleNews)
 
-        Navigation.findNavController(view).navigate(action)
+        findNavController().navigate(action)
+    }
+
+    private val onItemTouchHelperCallback = object : ItemTouchHelper.Callback() {
+        override fun getMovementFlags(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            val swipeFlags = ItemTouchHelper.LEFT
+            return makeMovementFlags(0, swipeFlags)
+        }
+
+        override fun onMove(
+            recyclerView: RecyclerView,
+            viewHolder: RecyclerView.ViewHolder,
+            target: RecyclerView.ViewHolder
+        ): Boolean {
+            return false
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+            val position = viewHolder.adapterPosition
+            val articleNews = articleNewsAdapter.getArticleNewsItem(position)
+            newsViewModel.deleteArticleNews(articleNews)
+            Snackbar.make(
+                view!!,
+                resources.getString(R.string.delete_article),
+                Snackbar.LENGTH_LONG
+            ).setAction(resources.getString(R.string.undo)) {
+                newsViewModel.saveArticle(articleNews)
+            }.show()
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,40 +77,6 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         savedNewsRecyclerView.setHasFixedSize(true)
         savedNewsRecyclerView.adapter = articleNewsAdapter
         articleNewsAdapter.setOnItemClickListener(onItemClickListener)
-
-        val onItemTouchHelperCallback = object : ItemTouchHelper.Callback() {
-            override fun getMovementFlags(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder
-            ): Int {
-                val swipeFlags = ItemTouchHelper.LEFT
-                return makeMovementFlags(0, swipeFlags)
-            }
-
-            override fun onMove(
-                recyclerView: RecyclerView,
-                viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder
-            ): Boolean {
-                return false
-            }
-
-            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val resource = view.context.resources
-                val position = viewHolder.adapterPosition
-                val articleNews = articleNewsAdapter.getArticleNewsItem(position)
-                newsViewModel.deleteArticleNews(articleNews)
-                Snackbar.make(
-                    view,
-                    resource.getString(R.string.delete_article),
-                    Snackbar.LENGTH_LONG
-                )
-                    .setAction(resource.getString(R.string.undo)) {
-                        newsViewModel.saveArticle(articleNews)
-                    }
-                    .show()
-            }
-        }
 
         ItemTouchHelper(onItemTouchHelperCallback).apply {
             attachToRecyclerView(savedNewsRecyclerView)
