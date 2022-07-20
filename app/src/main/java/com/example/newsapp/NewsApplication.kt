@@ -1,8 +1,8 @@
 package com.example.newsapp
 
 import android.app.Application
-import com.example.newsapp.api.ArticleNewsApi
-import com.example.newsapp.api.ArticleNewsService
+import com.example.newsapp.network.ArticleNewsApi
+import com.example.newsapp.network.ArticleNewsService
 import com.example.newsapp.data.ArticleDatabase
 import com.example.newsapp.repository.NewsRepository
 

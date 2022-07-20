@@ -1,4 +1,4 @@
-package com.example.newsapp.view.fragment
+package com.example.newsapp.ui.fragment
 
 import androidx.preference.PreferenceFragmentCompat
 import android.os.Bundle

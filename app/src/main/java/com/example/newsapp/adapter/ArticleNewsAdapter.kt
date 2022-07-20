@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.newsapp.R
 import com.example.newsapp.adapter.ArticleNewsAdapter.ArticleNewsViewHolder
+import com.example.newsapp.databinding.NewsListItemBinding
 import com.example.newsapp.model.ArticleNews
 
 class ArticleNewsAdapter : RecyclerView.Adapter<ArticleNewsViewHolder>() {
@@ -39,23 +40,25 @@ class ArticleNewsAdapter : RecyclerView.Adapter<ArticleNewsViewHolder>() {
     private var onClickListener: View.OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ArticleNewsViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.news_list_item, parent, false)
-        return ArticleNewsViewHolder(view)
+        val inflater = LayoutInflater.from(parent.context)
+        val binding = NewsListItemBinding.inflate(inflater, parent, false)
+        return ArticleNewsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ArticleNewsViewHolder, position: Int) {
         val articleNews = articleListDiffer.currentList[position]
-        with(holder) {
+        with(holder.binding) {
             textTitleNews.text = articleNews.title
-            textSourceNews.text =
+            textSourceName.text =
                 articleNews.sourceId.substring(0, 1).uppercase() + articleNews.sourceId.substring(1)
                     .lowercase()
             textPublishedNews.text = articleNews.pubDate
             Glide.with(imageArticleNews.context)
                 .load(articleNews.imageUrl)
                 .into(imageArticleNews)
+
         }
+
     }
 
     override fun getItemCount(): Int {
@@ -66,19 +69,12 @@ class ArticleNewsAdapter : RecyclerView.Adapter<ArticleNewsViewHolder>() {
         onClickListener = onItemClickListener
     }
 
-    inner class ArticleNewsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var imageArticleNews: ImageView
-        var textTitleNews: TextView
-        var textSourceNews: TextView
-        var textPublishedNews: TextView
-
-        init {
-            imageArticleNews = view.findViewById(R.id.imageArticleNews)
-            textTitleNews = view.findViewById(R.id.textTitleNews)
-            textSourceNews = view.findViewById(R.id.textSourceName)
-            textPublishedNews = view.findViewById(R.id.textPublishedNews)
-            view.tag = this
-            view.setOnClickListener(onClickListener)
+    inner class ArticleNewsViewHolder(val binding: NewsListItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+            init {
+                binding.root.tag = this
+                binding.root.setOnClickListener(onClickListener)
+            }
         }
-    }
+
 }

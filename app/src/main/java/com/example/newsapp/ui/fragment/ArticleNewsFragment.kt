@@ -1,4 +1,4 @@
-package com.example.newsapp.view.fragment
+package com.example.newsapp.ui.fragment
 
 import android.content.ActivityNotFoundException
 import android.content.Intent
@@ -12,12 +12,12 @@ import android.view.MenuItem
 import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
-import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
+import com.example.newsapp.databinding.FragmentArticleNewsBinding
 import com.example.newsapp.model.ArticleNews
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.example.newsapp.viewmodel.NewsViewModelFactory
@@ -30,6 +30,8 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         NewsViewModelFactory((activity?.application as NewsApplication).repository)
     }
 
+    private var fragmentBinding: FragmentArticleNewsBinding? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -38,17 +40,17 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentArticleNewsBinding.bind(view)
+        fragmentBinding = binding
 
-        val articleWebView: WebView = view.findViewById(R.id.webView)
-
-        with(articleWebView) {
+        with(binding.webView) {
             webViewClient = WebViewClient()
             articleNews?.let { loadUrl(it.link) }
             val webSettings = settings
             webSettings.javaScriptEnabled = true
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 webSettings.mixedContentMode = MIXED_CONTENT_ALWAYS_ALLOW
-                CookieManager.getInstance().setAcceptThirdPartyCookies(articleWebView, true)
+                CookieManager.getInstance().setAcceptThirdPartyCookies(binding.webView, true)
             }
         }
     }
@@ -129,5 +131,10 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         if (menuItem != null) {
             menuItem.isVisible = false
         }
+    }
+
+    override fun onDestroyView() {
+        fragmentBinding = null
+        super.onDestroyView()
     }
 }

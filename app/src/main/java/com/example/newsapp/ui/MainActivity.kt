@@ -1,4 +1,4 @@
-package com.example.newsapp.view
+package com.example.newsapp.ui
 
 import android.os.Bundle
 import android.view.Menu
@@ -6,32 +6,17 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.widget.Toast
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
-import androidx.fragment.app.viewModels
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
-import androidx.navigation.NavDestination
 import androidx.navigation.NavDirections
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
-import androidx.navigation.ui.NavigationUI.setupWithNavController
-import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
-import com.example.newsapp.NewsApplication
 import com.example.newsapp.NewsNavGraphDirections
 import com.example.newsapp.R
-import com.example.newsapp.api.ArticleNewsApi
-import com.example.newsapp.repository.NewsRepository
-import com.example.newsapp.viewmodel.NewsViewModel
-import com.example.newsapp.viewmodel.NewsViewModelFactory
-import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.example.newsapp.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
-    private val bottomNavigationView: BottomNavigationView by lazy { findViewById(R.id.bottomNavigationView) }
-    private val toolbar: Toolbar by lazy { findViewById(R.id.toolbar) }
-
     private val navHostFragment: NavHostFragment by lazy {
         supportFragmentManager
             .findFragmentById(R.id.newsNavHostFragment) as NavHostFragment
@@ -39,10 +24,14 @@ class MainActivity : AppCompatActivity() {
     private val navController: NavController by lazy {
         navHostFragment.navController
     }
+
+    private lateinit var binding: ActivityMainBinding
+
     public override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
-        setSupportActionBar(toolbar)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        setSupportActionBar(binding.toolbar)
 
         val appBarConfiguration = AppBarConfiguration.Builder(
             R.id.recentNewsFragment,
@@ -51,24 +40,23 @@ class MainActivity : AppCompatActivity() {
             R.id.settingsFragment
         ).build()
 
-        toolbar.setupWithNavController(navController, appBarConfiguration)
-        bottomNavigationView.setupWithNavController(navController)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+        binding.bottomNavigationView.setupWithNavController(navController)
 
         navController.addOnDestinationChangedListener { controller, destination, arguments ->
             when (destination.id) {
                 R.id.articleNewsFragment -> {
-                    bottomNavigationView.visibility = View.GONE
+                    binding.bottomNavigationView.visibility = View.GONE
                 }
                 R.id.searchFragment -> {
-                    bottomNavigationView.visibility = View.GONE
+                    binding.bottomNavigationView.visibility = View.GONE
                 }
                 else -> {
-                    bottomNavigationView.visibility = View.VISIBLE
+                    binding.bottomNavigationView.visibility = View.VISIBLE
                 }
             }
         }
     }
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         val menuInflater: MenuInflater = menuInflater
         menuInflater.inflate(R.menu.top_bar_menu, menu)
@@ -79,6 +67,7 @@ class MainActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.searchNews -> {
                 Toast.makeText(this@MainActivity, "Search", Toast.LENGTH_SHORT).show()
+
                 val action: NavDirections = NewsNavGraphDirections.actionGlobalSearchFragment()
                 navController.navigate(action)
                 return true

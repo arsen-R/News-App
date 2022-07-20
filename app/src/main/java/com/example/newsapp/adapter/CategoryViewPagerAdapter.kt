@@ -2,7 +2,7 @@ package com.example.newsapp.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.example.newsapp.view.fragment.HeadlinesItemFragment
+import com.example.newsapp.ui.fragment.HeadlinesItemFragment
 
 class CategoryViewPagerAdapter(fragment: Fragment) : FragmentStateAdapter(fragment) {
     private var data = listOf<String>()

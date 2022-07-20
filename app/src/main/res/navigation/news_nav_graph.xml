@@ -6,7 +6,7 @@
     app:startDestination="@id/recentNewsFragment">
     <fragment
         android:id="@+id/recentNewsFragment"
-        android:name="com.example.newsapp.view.fragment.RecentNewsFragment"
+        android:name="com.example.newsapp.ui.fragment.RecentNewsFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_recents_news">
         <action
@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/headlinesNewsFragment"
-        android:name="com.example.newsapp.view.fragment.HeadlinesNewsFragment"
+        android:name="com.example.newsapp.ui.fragment.HeadlinesNewsFragment"
         android:label="@string/app_name"
-        tools:layout="@layout/fragment_breaking_news" >
+        tools:layout="@layout/fragment_headlines_news" >
         <action
             android:id="@+id/action_headlinesNewsFragment_to_articleNewsFragment"
             app:destination="@id/articleNewsFragment"
@@ -28,7 +28,7 @@
 
     <fragment
         android:id="@+id/articleNewsFragment"
-        android:name="com.example.newsapp.view.fragment.ArticleNewsFragment"
+        android:name="com.example.newsapp.ui.fragment.ArticleNewsFragment"
         android:label="@string/empty_label"
         tools:layout="@layout/fragment_article_news">
         <argument
@@ -47,19 +47,28 @@
             android:id="@+id/action_articleNewsFragment_to_headlinesNewsFragment"
             app:destination="@id/headlinesNewsFragment"
             app:popUpTo="@id/headlinesNewsFragment" />
+        <action
+            android:id="@+id/action_articleNewsFragment_to_searchFragment"
+            app:destination="@id/searchFragment"
+            app:popUpTo="@id/searchFragment" />
     </fragment>
     <fragment
         android:id="@+id/settingsFragment"
-        android:name="com.example.newsapp.view.fragment.SettingsFragment"
+        android:name="com.example.newsapp.ui.fragment.SettingsFragment"
         android:label="Profile" />
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.example.newsapp.view.fragment.SearchFragment"
+        android:name="com.example.newsapp.ui.fragment.SearchFragment"
         android:label="@string/empty_label"
-        tools:layout="@layout/fragment_search" />
+        tools:layout="@layout/fragment_search" >
+        <action
+            android:id="@+id/action_searchFragment_to_articleNewsFragment"
+            app:destination="@id/articleNewsFragment"
+            app:popUpTo="@id/searchFragment" />
+    </fragment>
     <fragment
         android:id="@+id/savedNewsFragment"
-        android:name="com.example.newsapp.view.fragment.SavedNewsFragment"
+        android:name="com.example.newsapp.ui.fragment.SavedNewsFragment"
         android:label="@string/saved_news_label"
         tools:layout="@layout/fragment_saved_news" >
         <action
@@ -70,7 +79,7 @@
     <action android:id="@+id/action_global_searchFragment" app:destination="@id/searchFragment" />
     <fragment
         android:id="@+id/headlinesItemFragment"
-        android:name="com.example.newsapp.view.fragment.HeadlinesItemFragment"
+        android:name="com.example.newsapp.ui.fragment.HeadlinesItemFragment"
         android:label="fragment_headlines_item"
         tools:layout="@layout/fragment_headlines_item" />
 </navigation>

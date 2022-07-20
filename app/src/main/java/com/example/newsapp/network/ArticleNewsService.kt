@@ -1,4 +1,4 @@
-package com.example.newsapp.api
+package com.example.newsapp.network
 
 import com.example.newsapp.model.NewsResult
 import retrofit2.http.GET
@@ -14,4 +14,12 @@ interface ArticleNewsService {
         @Query("page") pageNumber: Int = 0,
         @Query("apikey") apikey: String = Constants.API_KEY
     ): Response<NewsResult>
+
+    @GET("news")
+    suspend fun searchArticleNews(
+        @Query("q") query: String,
+        @Query("country") country: String = "us",
+        @Query("page") pageNumber: Int = 0,
+        @Query("apikey") apikey: String = Constants.API_KEY
+    ) : Response<NewsResult>
 }

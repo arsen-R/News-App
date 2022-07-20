@@ -1,4 +1,4 @@
-package com.example.newsapp.view.fragment
+package com.example.newsapp.ui.fragment
 
 import android.os.Bundle
 import android.view.Menu
@@ -11,11 +11,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
 import com.example.newsapp.adapter.ArticleNewsAdapter
+import com.example.newsapp.databinding.FragmentSavedNewsBinding
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.example.newsapp.viewmodel.NewsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
 
 class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
+    private var fragmentBinding: FragmentSavedNewsBinding? = null
     private val articleNewsAdapter: ArticleNewsAdapter by lazy { ArticleNewsAdapter() }
 
     private val newsViewModel: NewsViewModel by viewModels {
@@ -72,15 +74,18 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val binding = FragmentSavedNewsBinding.bind(view)
+        fragmentBinding = binding
 
-        val savedNewsRecyclerView: RecyclerView = view.findViewById(R.id.savedNewsRecyclerView)
-        savedNewsRecyclerView.setHasFixedSize(true)
-        savedNewsRecyclerView.adapter = articleNewsAdapter
-        articleNewsAdapter.setOnItemClickListener(onItemClickListener)
+        with(binding.savedNewsRecyclerView) {
+            setHasFixedSize(true)
+            adapter = articleNewsAdapter
 
-        ItemTouchHelper(onItemTouchHelperCallback).apply {
-            attachToRecyclerView(savedNewsRecyclerView)
+            ItemTouchHelper(onItemTouchHelperCallback).apply {
+                attachToRecyclerView(this@with)
+            }
         }
+        articleNewsAdapter.setOnItemClickListener(onItemClickListener)
 
         newsViewModel.getSavedArticles().observe(viewLifecycleOwner) { article ->
             articleNewsAdapter.submitList(article)
@@ -93,5 +98,10 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         if (menuItem != null) {
             menuItem.isVisible = false
         }
+    }
+
+    override fun onDestroyView() {
+        fragmentBinding = null
+        super.onDestroyView()
     }
 }

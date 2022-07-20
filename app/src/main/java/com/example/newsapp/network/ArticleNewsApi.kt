@@ -1,4 +1,4 @@
-package com.example.newsapp.api
+package com.example.newsapp.network
 
 import com.example.newsapp.utils.Constants
 import retrofit2.Retrofit
