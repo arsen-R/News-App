@@ -11,8 +11,7 @@
         tools:layout="@layout/fragment_recents_news">
         <action
             android:id="@+id/action_recentNewsFragment_to_articleNewsFragment"
-            app:destination="@id/articleNewsFragment"
-            app:popUpTo="@id/recentNewsFragment" />
+            app:destination="@id/articleNewsFragment" />
     </fragment>
 
     <fragment
@@ -22,8 +21,7 @@
         tools:layout="@layout/fragment_headlines_news" >
         <action
             android:id="@+id/action_headlinesNewsFragment_to_articleNewsFragment"
-            app:destination="@id/articleNewsFragment"
-            app:popUpTo="@id/headlinesNewsFragment" />
+            app:destination="@id/articleNewsFragment" />
     </fragment>
 
     <fragment

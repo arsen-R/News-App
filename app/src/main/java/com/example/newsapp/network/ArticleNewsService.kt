@@ -17,7 +17,7 @@ interface ArticleNewsService {
 
     @GET("news")
     suspend fun searchArticleNews(
-        @Query("q") query: String,
+        @Query("qInTitle") query: String,
         @Query("country") country: String = "us",
         @Query("page") pageNumber: Int = 0,
         @Query("apikey") apikey: String = Constants.API_KEY

@@ -1,9 +1,8 @@
-package com.example.newsapp.data
+package com.example.newsapp.database
 
 import android.content.Context
 import androidx.room.*
 import com.example.newsapp.model.ArticleNews
-import com.example.newsapp.utils.Constants
 
 @Database(entities = [ArticleNews::class], version = 3, exportSchema = false)
 @TypeConverters(Converters::class)

@@ -25,15 +25,15 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
     }
 
     private val onItemClickListener = View.OnClickListener { view: View ->
-        val viewHolder = view.tag as RecyclerView.ViewHolder
-        val position = viewHolder.adapterPosition
-
-        val articleNews = articleNewsAdapter.getArticleNewsItem(position)
-
-        val action =
-            SavedNewsFragmentDirections.actionSavedNewsFragmentToArticleNewsFragment(articleNews)
-
-        findNavController().navigate(action)
+//        val viewHolder = view.tag as RecyclerView.ViewHolder
+//        val position = viewHolder.adapterPosition
+//
+//        val articleNews = articleNewsAdapter.getArticleNewsItem(position)
+//
+//        val action =
+//            SavedNewsFragmentDirections.actionSavedNewsFragmentToArticleNewsFragment(articleNews)
+//
+//        findNavController().navigate(action)
     }
 
     private val onItemTouchHelperCallback = object : ItemTouchHelper.Callback() {
@@ -54,16 +54,16 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-            val position = viewHolder.adapterPosition
-            val articleNews = articleNewsAdapter.getArticleNewsItem(position)
-            newsViewModel.deleteArticleNews(articleNews)
-            Snackbar.make(
-                view!!,
-                resources.getString(R.string.delete_article),
-                Snackbar.LENGTH_LONG
-            ).setAction(resources.getString(R.string.undo)) {
-                newsViewModel.saveArticle(articleNews)
-            }.show()
+//            val position = viewHolder.adapterPosition
+//            val articleNews = articleNewsAdapter.getArticleNewsItem(position)
+//            newsViewModel.deleteArticleNews(articleNews)
+//            Snackbar.make(
+//                view!!,
+//                resources.getString(R.string.delete_article),
+//                Snackbar.LENGTH_LONG
+//            ).setAction(resources.getString(R.string.undo)) {
+//                newsViewModel.saveArticle(articleNews)
+//            }.show()
         }
     }
 
@@ -88,7 +88,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         articleNewsAdapter.setOnItemClickListener(onItemClickListener)
 
         newsViewModel.getSavedArticles().observe(viewLifecycleOwner) { article ->
-            articleNewsAdapter.submitList(article)
+            //articleNewsAdapter.submitList(article)
         }
     }
 

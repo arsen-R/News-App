@@ -1,4 +1,4 @@
-package com.example.newsapp.data
+package com.example.newsapp.database
 
 import androidx.room.TypeConverter
 import com.google.gson.Gson

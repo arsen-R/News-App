@@ -26,16 +26,17 @@
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/textMessage"
+    <include
+        android:id="@+id/errorMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:text="@string/there_is_no_news"
+        layout="@layout/item_error"
         android:visibility="invisible"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="25dp"/>
+
 
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar"
