@@ -16,7 +16,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NewsApp"
         tools:targetApi="31">
-
+        <meta-data android:name="android.webkit.WebView.EnableSafeBrowsing"
+            android:value="false" />
         <activity
             android:name=".ui.MainActivity"
             android:exported="true">

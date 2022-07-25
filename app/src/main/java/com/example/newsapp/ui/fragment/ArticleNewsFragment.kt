@@ -13,6 +13,8 @@ import android.view.View
 import android.webkit.CookieManager
 import android.webkit.WebSettings.MIXED_CONTENT_ALWAYS_ALLOW
 import android.webkit.WebViewClient
+import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.example.newsapp.NewsApplication
@@ -45,18 +47,28 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
 
         with(binding.webView) {
             webViewClient = WebViewClient()
-            articleNews?.let { loadUrl(it.link) }
-            val webSettings = settings
-            webSettings.javaScriptEnabled = true
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                webSettings.mixedContentMode = MIXED_CONTENT_ALWAYS_ALLOW
-                CookieManager.getInstance().setAcceptThirdPartyCookies(binding.webView, true)
+            articleNews?.let {
+                loadUrl(it.link)
+                val webSettings = settings
+                webSettings.javaScriptEnabled = true
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    webSettings.mixedContentMode = MIXED_CONTENT_ALWAYS_ALLOW
+                    CookieManager.getInstance().setAcceptThirdPartyCookies(binding.webView, true)
+                }
             }
+
         }
     }
 
+    private var menuItem: MenuItem? = null
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.article_top_bar_menu, menu)
+        menuItem = menu.findItem(R.id.saveArticle)
+        if (newsViewModel.savedArticleByTitle(articleNews?.title!!) == 1) {
+            menuItem?.icon = ContextCompat.getDrawable(activity?.applicationContext!!, R.drawable.ic_bookmark_24)
+        } else {
+            menuItem?.icon = ContextCompat.getDrawable(activity?.applicationContext!!, R.drawable.ic_bookmark_border_24)
+        }
         super.onCreateOptionsMenu(menu, inflater)
     }
 
@@ -67,11 +79,11 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
                 return true
             }
             R.id.saveArticle -> {
-                    articleNews?.let { newsViewModel.saveArticle(it) }
-                    Snackbar.make(
-                        view!!, resources.getString(R.string.save_article),
-                        Snackbar.LENGTH_LONG
-                    ).show()
+                if (newsViewModel.savedArticleByTitle(articleNews?.title!!) != 1) {
+                    savedArticle()
+                } else {
+                    deleteArticle()
+                }
                 return true
             }
             R.id.go_to_original_web_page -> {
@@ -88,8 +100,25 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         }
         return super.onOptionsItemSelected(item)
     }
-
-    private fun shareArticleNews(link: String) {
+    private fun savedArticle() {
+        articleNews?.let { newsViewModel.saveArticle(it) }
+        menuItem?.icon = ContextCompat.getDrawable(activity?.applicationContext!!, R.drawable.ic_bookmark_24)
+        Snackbar.make(
+            view!!, resources.getString(R.string.save_article),
+            Snackbar.LENGTH_LONG
+        ).show()
+    }
+    private fun deleteArticle() {
+        articleNews?.title?.let { newsViewModel.deleteArticle(it) }
+        menuItem?.icon = ContextCompat.getDrawable(activity?.applicationContext!!, R.drawable.ic_bookmark_border_24)
+        Snackbar.make(
+            view!!, resources.getString(R.string.delete_article),
+            Snackbar.LENGTH_LONG
+        ).setAction(resources.getString(R.string.undo)) {
+            savedArticle()
+        }.show()
+    }
+    private fun shareArticleNews(link: String?) {
         val intent = Intent().apply {
             action = Intent.ACTION_SEND
             putExtra(Intent.EXTRA_TEXT, link)
@@ -101,6 +130,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         } catch (e: ActivityNotFoundException) {
             Log.e("LogArticleNewsError", e.message.toString())
         }
+
     }
 
     private fun goToOriginalWebPage(link: String) {

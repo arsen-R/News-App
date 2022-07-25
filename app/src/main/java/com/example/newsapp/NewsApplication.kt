@@ -1,9 +1,9 @@
 package com.example.newsapp
 
 import android.app.Application
+import com.example.newsapp.database.ArticleDatabase
 import com.example.newsapp.network.ArticleNewsApi
 import com.example.newsapp.network.ArticleNewsService
-import com.example.newsapp.database.ArticleDatabase
 import com.example.newsapp.repository.NewsRepository
 
 class NewsApplication : Application() {

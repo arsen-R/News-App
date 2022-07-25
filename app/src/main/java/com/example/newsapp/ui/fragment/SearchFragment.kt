@@ -7,7 +7,6 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -21,9 +20,7 @@ import com.example.newsapp.R
 import com.example.newsapp.adapter.ArticleNewsAdapter
 import com.example.newsapp.adapter.NewsLoaderStateAdapter
 import com.example.newsapp.databinding.FragmentSearchBinding
-import com.example.newsapp.model.ArticleNews
 import com.example.newsapp.utils.Constants
-import com.example.newsapp.utils.Resource
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.example.newsapp.viewmodel.NewsViewModelFactory
 import kotlinx.coroutines.Job

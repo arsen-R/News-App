@@ -5,35 +5,39 @@ import android.view.Menu
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
 import com.example.newsapp.adapter.ArticleNewsAdapter
+import com.example.newsapp.adapter.SavedArticleAdapter
 import com.example.newsapp.databinding.FragmentSavedNewsBinding
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.example.newsapp.viewmodel.NewsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
 
 class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
     private var fragmentBinding: FragmentSavedNewsBinding? = null
-    private val articleNewsAdapter: ArticleNewsAdapter by lazy { ArticleNewsAdapter() }
+    private val articleNewsAdapter: SavedArticleAdapter by lazy { SavedArticleAdapter() }
 
     private val newsViewModel: NewsViewModel by viewModels {
         NewsViewModelFactory((activity?.application as NewsApplication).repository)
     }
 
     private val onItemClickListener = View.OnClickListener { view: View ->
-//        val viewHolder = view.tag as RecyclerView.ViewHolder
-//        val position = viewHolder.adapterPosition
-//
-//        val articleNews = articleNewsAdapter.getArticleNewsItem(position)
-//
-//        val action =
-//            SavedNewsFragmentDirections.actionSavedNewsFragmentToArticleNewsFragment(articleNews)
-//
-//        findNavController().navigate(action)
+        val viewHolder = view.tag as RecyclerView.ViewHolder
+        val position = viewHolder.layoutPosition
+
+        val articleNews = articleNewsAdapter.getArticleNewsItem(position)
+
+        val action =
+            SavedNewsFragmentDirections.actionSavedNewsFragmentToArticleNewsFragment(articleNews)
+
+        findNavController().navigate(action)
     }
 
     private val onItemTouchHelperCallback = object : ItemTouchHelper.Callback() {
@@ -54,16 +58,16 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         }
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-//            val position = viewHolder.adapterPosition
-//            val articleNews = articleNewsAdapter.getArticleNewsItem(position)
-//            newsViewModel.deleteArticleNews(articleNews)
-//            Snackbar.make(
-//                view!!,
-//                resources.getString(R.string.delete_article),
-//                Snackbar.LENGTH_LONG
-//            ).setAction(resources.getString(R.string.undo)) {
-//                newsViewModel.saveArticle(articleNews)
-//            }.show()
+            val position = viewHolder.layoutPosition
+            val articleNews = articleNewsAdapter.getArticleNewsItem(position)
+            newsViewModel.deleteArticle(articleNews.title)
+            Snackbar.make(
+                view!!,
+                resources.getString(R.string.delete_article),
+                Snackbar.LENGTH_LONG
+            ).setAction(resources.getString(R.string.undo)) {
+                newsViewModel.saveArticle(articleNews)
+            }.show()
         }
     }
 
@@ -87,8 +91,10 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         }
         articleNewsAdapter.setOnItemClickListener(onItemClickListener)
 
-        newsViewModel.getSavedArticles().observe(viewLifecycleOwner) { article ->
-            //articleNewsAdapter.submitList(article)
+        viewLifecycleOwner.lifecycleScope.launch {
+            newsViewModel.getAllSavedArticleFlow.collectLatest {
+                articleNewsAdapter.submitList(it)
+            }
         }
     }
 

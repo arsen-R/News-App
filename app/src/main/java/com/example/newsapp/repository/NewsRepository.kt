@@ -34,10 +34,15 @@ class NewsRepository(
         }.flow
     }
 
-    fun getAllSavedArticleNews() = database.articleDao().getAllArticleNews()
+    val getSavedArticleNews: Flow<List<ArticleNews>> = database.articleDao().getAllSavedArticle()
 
-    fun addArticleNews(articleNews: ArticleNews) = database.articleDao().addArticleNews(articleNews)
+    fun getSavedArticleNewsByTitle(title: String) = database.articleDao().getSavedArticleByTitle(title)
 
-    fun deleteArticleNews(articleNews: ArticleNews) =
-        database.articleDao().deleteArticleNews(articleNews)
+    fun saveArticle(articleNews: ArticleNews) {
+        database.articleDao().saveArticle(articleNews)
+    }
+
+    fun deleteArticle(title: String) {
+        database.articleDao().deleteArticle(title)
+    }
 }
