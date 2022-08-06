@@ -34,18 +34,23 @@ class SavedArticleAdapter : RecyclerView.Adapter<SavedArticleAdapter.SavedArticl
         val articleNews = getArticleNewsItem(position)
 
         with(holder.binding) {
-            textTitleNews.text = articleNews?.title
+            textTitleNews.text = articleNews.title
 
             textSourceName.text =
-                articleNews?.sourceId?.substring(0, 1)
-                    ?.uppercase() + articleNews?.sourceId?.substring(1)
+                articleNews.sourceId?.substring(0, 1)
+                    ?.uppercase() + articleNews.sourceId?.substring(1)
                     ?.lowercase()
 
-            textPublishedNews.text = articleNews?.pubDate
+            textPublishedNews.text = articleNews.pubDate
 
-            Glide.with(imageArticleNews.context)
-                .load(articleNews?.imageUrl)
-                .into(imageArticleNews)
+            if (articleNews.imageUrl?.isNotEmpty() == true) {
+                Glide.with(imageArticleNews.context)
+                    .load(articleNews.imageUrl)
+                    .fitCenter()
+                    .into(imageArticleNews)
+            } else {
+                Glide.with(imageArticleNews.context).clear(imageArticleNews)
+            }
         }
     }
 

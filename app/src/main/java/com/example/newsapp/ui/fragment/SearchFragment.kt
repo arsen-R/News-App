@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.*
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
@@ -38,7 +39,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     private fun getLoadData() {
-        newsViewModel.setCountry("ua")
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view?.context!!)
+        val country = sharedPreferences.getString("country","us")
+        newsViewModel.setCountry(country)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -120,7 +123,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
     private val onItemClickListener = View.OnClickListener { view ->
         val viewHolder = view.tag as RecyclerView.ViewHolder
-        val position = viewHolder.layoutPosition
+        val position = viewHolder.bindingAdapterPosition
 
         val articleNews = newsAdapter.snapshot()[position]
 
@@ -137,7 +140,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     }
 
     override fun onDestroyView() {
-        fragmentBinding = null
         super.onDestroyView()
+        fragmentBinding = null
+        searchView.clearFocus()
     }
 }

@@ -1,16 +1,18 @@
 package com.example.newsapp.ui
 
+import android.content.Context
 import android.os.Bundle
 import android.view.*
-import android.widget.Toast
-import androidx.annotation.Nullable
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowInsetsCompat
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
+import androidx.preference.PreferenceManager
 import com.example.newsapp.NewsNavGraphDirections
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityMainBinding
@@ -36,7 +38,7 @@ class MainActivity : AppCompatActivity() {
             R.id.recentNewsFragment,
             R.id.headlinesNewsFragment,
             R.id.savedNewsFragment,
-            R.id.settingsFragment
+            R.id.profileFragment
         ).build()
 
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
@@ -48,6 +50,9 @@ class MainActivity : AppCompatActivity() {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
                 R.id.searchFragment -> {
+                    binding.bottomNavigationView.visibility = View.GONE
+                }
+                R.id.settingsFragment -> {
                     binding.bottomNavigationView.visibility = View.GONE
                 }
                 else -> {
@@ -65,14 +70,12 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.searchNews -> {
-                Toast.makeText(this@MainActivity, "Search", Toast.LENGTH_SHORT).show()
-
                 val action: NavDirections = NewsNavGraphDirections.actionGlobalSearchFragment()
                 navController.navigate(action)
                 return true
             }
         }
-        return super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(findNavController(R.id.newsNavHostFragment)) || super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

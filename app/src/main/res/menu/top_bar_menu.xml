@@ -5,6 +5,7 @@
         android:id="@+id/searchNews"
         android:enabled="true"
         android:icon="@drawable/ic_search_24"
+        android:iconTint="?attr/itemIconTint"
         android:title="@string/search_news"
         app:showAsAction="always" />
 </menu>

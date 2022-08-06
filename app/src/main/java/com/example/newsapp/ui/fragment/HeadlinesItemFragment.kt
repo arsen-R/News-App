@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
@@ -90,7 +91,9 @@ class HeadlinesItemFragment : Fragment(R.layout.fragment_headlines_item) {
     }
     private fun getLoadData() {
         newsViewModel.setArticleNews(articleCategory)
-        newsViewModel.setCountry("ua")
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view?.context!!)
+        val country = sharedPreferences.getString("country", "us")
+        newsViewModel.setCountry(country)
         newsAdapter.retry()
     }
     companion object {
@@ -102,9 +105,8 @@ class HeadlinesItemFragment : Fragment(R.layout.fragment_headlines_item) {
                 }
             }
     }
-
     override fun onDestroyView() {
-        fragmentBinding = null
         super.onDestroyView()
+        fragmentBinding = null
     }
 }

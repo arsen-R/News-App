@@ -1,24 +1,37 @@
 <resources>
-    <!-- Reply Preference -->
-    <string-array name="reply_entries">
-        <item>Reply</item>
-        <item>Reply to all</item>
+    <string-array name="country_entries">
+        <item>The United States</item>
+        <item>The United Kingdom</item>
+        <item>Україна</item>
     </string-array>
 
-    <string-array name="reply_values">
-        <item>reply</item>
-        <item>reply_all</item>
+    <string-array name="country_values">
+        <item>us</item>
+        <item>gb</item>
+        <item>ua</item>
+    </string-array>
+
+    <string-array name="dark_theme_entries">
+        <item>@string/system_default</item>
+        <item>@string/light_theme</item>
+        <item>@string/dark_theme</item>
+    </string-array>
+
+    <string-array name="dark_theme_values">
+        <item>system_default</item>
+        <item>light_theme</item>
+        <item>dark_theme</item>
     </string-array>
 
     <string-array name="articles_category">
-        <item>Business</item>
-        <item>Entertainment</item>
-        <item>Environment</item>
-        <item>Food</item>
-        <item>Health</item>
-        <item>Politics</item>
-        <item>Science</item>
-        <item>Sports</item>
-        <item>Technology</item>
+        <item>@string/business</item>
+        <item>@string/entertainment</item>
+        <item>@string/environment</item>
+        <item>@string/food</item>
+        <item>@string/health</item>
+        <item>@string/politics</item>
+        <item>@string/science</item>
+        <item>@string/sports</item>
+        <item>@string/technology</item>
     </string-array>
 </resources>

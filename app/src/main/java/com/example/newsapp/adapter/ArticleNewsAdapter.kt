@@ -42,11 +42,17 @@ class ArticleNewsAdapter : PagingDataAdapter<ArticleNews, ArticleNewsViewHolder>
 
                 textPublishedNews.text = articleNews?.pubDate
 
-                Glide.with(imageArticleNews.context)
-                    .load(articleNews?.imageUrl)
-                    .into(imageArticleNews)
+                if (articleNews?.imageUrl?.isNotEmpty() == true) {
+                    Glide.with(imageArticleNews.context)
+                        .load(articleNews.imageUrl)
+                        .fitCenter()
+                        .into(imageArticleNews)
+                } else {
+                    Glide.with(imageArticleNews.context).clear(imageArticleNews)
+                }
             }
         }
+
         init {
             binding.root.tag = this
             binding.root.setOnClickListener(onClickListener)

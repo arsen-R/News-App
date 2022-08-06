@@ -1,5 +1,6 @@
 package com.example.newsapp.viewmodel
 
+import android.util.Log
 import com.example.newsapp.repository.NewsRepository
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -11,7 +12,7 @@ import kotlinx.coroutines.flow.flatMapLatest
 
 class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
     private val categoryFlow: MutableStateFlow<String?> = MutableStateFlow("top")
-    private val countryFlow: MutableStateFlow<String?> = MutableStateFlow("ua")
+    private val countryFlow: MutableStateFlow<String?> = MutableStateFlow("")
     private val searchQueryFlow: MutableStateFlow<String?> = MutableStateFlow("")
 
     val articleNews = combine(categoryFlow, countryFlow) { (category, country) ->
@@ -29,7 +30,7 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
     }
 
     fun setCountry(country: String?) {
-        countryFlow.tryEmit(country)
+        countryFlow.value = country
     }
 
     fun setSearchQuery(query: String?) {

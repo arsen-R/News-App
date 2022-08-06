@@ -1,13 +1,17 @@
 package com.example.newsapp.ui.fragment
 
 import android.os.Bundle
+import android.util.Log
 import android.view.View
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.paging.LoadState
+import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
@@ -29,7 +33,7 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
     }
     private val onItemClickListener = View.OnClickListener { view: View ->
         val viewHolder = view.tag as RecyclerView.ViewHolder
-        val position = viewHolder.layoutPosition
+        val position = viewHolder.bindingAdapterPosition
 
         val articleNews = newsAdapter.snapshot()[position]
         val action =
@@ -64,7 +68,7 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
                 newsAdapter.submitData(viewLifecycleOwner.lifecycle, pagingData)
             }
         }
-        with( binding.swipeRefresh) {
+        with(binding.swipeRefresh) {
             setOnRefreshListener {
                 newsAdapter.refresh()
                 binding.recentNewsRecyclerView.scrollToPosition(0)
@@ -75,12 +79,14 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
 
     private fun getLoadData() {
         newsViewModel.setArticleNews(Constants.CATEGORY_TOP)
-        newsViewModel.setCountry("ua")
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(view?.context!!)
+        val country = sharedPreferences.getString("country", "us")
+        newsViewModel.setCountry(country)
         newsAdapter.retry()
     }
 
     override fun onDestroy() {
-        fragmentBinding = null
         super.onDestroy()
+        fragmentBinding = null
     }
 }

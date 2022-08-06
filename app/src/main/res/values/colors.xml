@@ -12,4 +12,7 @@
     <color name="lochmara">#1F6AA6</color>
     <color name="grey">#CDCACA</color>
     <color name="dark_grey">#858585</color>
+    <color name="icon_grey">#7E7E7E</color>
+
+    <color name="dark_mode_grey">#202124</color>
 </resources>

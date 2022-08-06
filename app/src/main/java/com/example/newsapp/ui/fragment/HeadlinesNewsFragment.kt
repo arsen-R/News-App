@@ -31,7 +31,7 @@ class HeadlinesNewsFragment : Fragment(R.layout.fragment_headlines_news) {
     }
 
     override fun onDestroyView() {
-        fragmentBinding = null
         super.onDestroyView()
+        fragmentBinding = null
     }
 }
