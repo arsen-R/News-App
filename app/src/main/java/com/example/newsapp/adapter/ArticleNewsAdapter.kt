@@ -1,5 +1,6 @@
 package com.example.newsapp.adapter
 
+import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -40,7 +41,7 @@ class ArticleNewsAdapter : PagingDataAdapter<ArticleNews, ArticleNewsViewHolder>
                         ?.uppercase() + articleNews?.sourceId?.substring(1)
                         ?.lowercase()
 
-                textPublishedNews.text = articleNews?.pubDate
+                textPublishedNews.text = articleNews?.getFormattedTime()
 
                 if (articleNews?.imageUrl?.isNotEmpty() == true) {
                     Glide.with(imageArticleNews.context)

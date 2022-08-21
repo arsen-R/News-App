@@ -2,9 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.newsapp">
-
     <uses-permission android:name="android.permission.INTERNET" />
-
     <application
         android:name=".NewsApplication"
         android:allowBackup="true"
@@ -22,7 +20,6 @@
             <meta-data
                 android:name="android.webkit.WebView.EnableSafeBrowsing"
                 android:value="false" />
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

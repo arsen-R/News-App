@@ -68,6 +68,16 @@ class HeadlinesItemFragment : Fragment(R.layout.fragment_headlines_item) {
                 breakingRecyclerView.isVisible = state.refresh is LoadState.NotLoading
                 progressBar.isVisible = state.refresh is LoadState.Loading
                 errorMessage.textErrorMessage.isVisible = state.refresh is LoadState.Error
+                if (state.source.refresh is LoadState.NotLoading &&  state.append.endOfPaginationReached) {
+                    if (newsAdapter.itemCount < 1) {
+                        errorMessage.textErrorMessage.isVisible = true
+                        breakingRecyclerView.isVisible = false
+                        errorMessage.textErrorMessage.text = context?.getText(R.string.there_is_no_news)
+                    } else {
+                        errorMessage.textErrorMessage.isVisible = false
+                        breakingRecyclerView.isVisible = true
+                    }
+                }
             }
         }
         newsAdapter.setOnItemClickListener(onItemClickListener)

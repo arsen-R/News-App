@@ -1,10 +1,12 @@
 package com.example.newsapp.ui
 
-import android.content.Context
 import android.os.Bundle
-import android.view.*
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.navigation.NavController
 import androidx.navigation.NavDirections
 import androidx.navigation.findNavController
@@ -12,10 +14,10 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.onNavDestinationSelected
 import androidx.navigation.ui.setupWithNavController
-import androidx.preference.PreferenceManager
 import com.example.newsapp.NewsNavGraphDirections
 import com.example.newsapp.R
 import com.example.newsapp.databinding.ActivityMainBinding
+
 
 class MainActivity : AppCompatActivity() {
     private val navHostFragment: NavHostFragment by lazy {
@@ -33,7 +35,6 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
-        WindowManager.LayoutParams.LAYOUT_IN_DISPLAY_CUTOUT_MODE_SHORT_EDGES
         val appBarConfiguration = AppBarConfiguration.Builder(
             R.id.recentNewsFragment,
             R.id.headlinesNewsFragment,
@@ -75,7 +76,9 @@ class MainActivity : AppCompatActivity() {
                 return true
             }
         }
-        return item.onNavDestinationSelected(findNavController(R.id.newsNavHostFragment)) || super.onOptionsItemSelected(item)
+        return item.onNavDestinationSelected(findNavController(R.id.newsNavHostFragment)) || super.onOptionsItemSelected(
+            item
+        )
     }
 
     override fun onSupportNavigateUp(): Boolean {

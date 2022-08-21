@@ -1,12 +1,13 @@
 <resources>
     <string name="app_name">News</string>
+
     <string name="recent_news">Recent</string>
     <string name="headlines_news">Headlines</string>
     <string name="saved_news">Saved</string>
     <string name="settings_app">Settings</string>
     <string name="profile_user">Profile</string>
     <string name="search_news">Search</string>
-    <string name="empty_label"></string>
+    <string name="empty_label" />
     <string name="saved_news_label">Saved Articles</string>
     <string name="share_article">Share Article</string>
     <string name="save_article">Article saved</string>
@@ -19,6 +20,8 @@
     <string name="result_for_search">RESULT FOR \"%1$s\": %2$d</string>
     <string name="message_no_result_found">No result found.</string>
     <string name="message_modify_search">Please modify your search</string>
+    <string name="network_error">No Connection</string>
+    <string name="try_again">Try Again</string>
 
     <string name="business">Business</string>
     <string name="entertainment">Entertainment</string>
@@ -37,4 +40,6 @@
     <string name="dark_theme">Dark</string>
     <string name="light_theme">Light</string>
     <string name="system_default">System Default</string>
+
+    <string name="description_saved_article_page">Saved articles are stored here. Tap the icon on any article to add it to your collection.</string>
 </resources>

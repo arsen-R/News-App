@@ -25,15 +25,9 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textTitleNews"
-            style="@style/Theme.NewsApp.TextView"
+            style="@style/Theme.NewsApp.CardView.TextView.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="3dp"
-            android:layout_marginEnd="15dp"
-            android:padding="3dp"
-            android:textAlignment="textStart"
-            android:textSize="16sp"
-            android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageArticleNews"
@@ -41,11 +35,10 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textSourceName"
-            style="@style/Theme.NewsApp.TextView"
+            style="@style/Theme.NewsApp.CardView.TextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="5dp"
-            android:padding="2dp"
             android:text="NASA"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/textPublishedNews"
@@ -54,7 +47,7 @@
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textPublishedNews"
-            style="@style/Theme.NewsApp.TextView"
+            style="@style/Theme.NewsApp.CardView.TextView"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="2022-04-30 18:06:00"

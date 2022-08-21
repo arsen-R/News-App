@@ -1,42 +1,63 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
-    <style name="Theme.NewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
-        <!-- Primary brand color. -->
+    <style name="Base.V21.Theme.NewsApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/white</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/grey</item>
-        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/dark_grey</item>
         <item name="colorSecondaryVariant">@color/teal_700</item>
         <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?attr/colorOnPrimary</item>
-        <!-- Customize your theme here. -->
-        <item name="iconTint">@color/icon_grey</item>
     </style>
+
+    <style name="Base.Theme.NewsApp" parent="Base.V21.Theme.NewsApp"/>
+
+    <style name="Theme.NewsApp" parent="Base.Theme.NewsApp"/>
+
     <style name="Theme.NewsApp.ToolBar" parent="Widget.MaterialComponents.Toolbar">
         <item name="android:background">@color/white</item>
         <item name="titleCentered">true</item>
     </style>
+
     <style name="Theme.NewsApp.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="android:background">@color/white</item>
     </style>
+
     <style name="Theme.NewsApp.TextView" parent="Widget.AppCompat.TextView">
         <item name="android:textColor">@color/black</item>
-        <item name="android:layout_marginStart">10dp</item>
     </style>
+    <style name="Theme.NewsApp.TextView.Title" parent="Theme.NewsApp.TextView">
+        <item name="android:textSize">25sp</item>
+        <item name="android:fontFamily">serif</item>
+    </style>
+
+    <style name="Theme.NewsApp.CardView.TextView" parent="Theme.NewsApp.TextView">
+        <item name="android:layout_marginStart">10dp</item>
+        <item name="android:padding">2dp</item>
+    </style>
+
+    <style name="Theme.NewsApp.CardView.TextView.Title" parent="Theme.NewsApp.CardView.TextView">
+        <item name="android:layout_marginTop">3dp</item>
+        <item name="android:layout_marginEnd">10dp</item>
+        <item name="android:padding">3dp</item>
+        <item name="android:textAlignment">textStart</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Theme.NewsApp.CardView" parent="CardView">
         <item name="cardBackgroundColor">@color/white</item>
         <item name="cardCornerRadius">8dp</item>
-        <item name="cardUseCompatPadding">true</item>
+        <item name="cardUseCompatPadding">false</item>
         <item name="android:layout_margin">5dp</item>
     </style>
+
     <style name="Theme.NewsApp.TabLayout" parent="Widget.MaterialComponents.TabLayout">
         <item name="android:background">@color/white</item>
         <item name="tabTextColor">@color/black</item>
         <item name="tabSelectedTextColor">@color/dodger_blue</item>
         <item name="tabIndicatorColor">@color/dodger_blue</item>
     </style>
+
     <style name="Theme.NewsApp.SettingButton" parent="Widget.AppCompat.Button">
         <item name="android:background">@color/white</item>
         <item name="android:textColor">@color/black</item>

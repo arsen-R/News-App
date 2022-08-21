@@ -41,7 +41,7 @@ class SavedArticleAdapter : RecyclerView.Adapter<SavedArticleAdapter.SavedArticl
                     ?.uppercase() + articleNews.sourceId?.substring(1)
                     ?.lowercase()
 
-            textPublishedNews.text = articleNews.pubDate
+            textPublishedNews.text = articleNews.getFormattedTime()
 
             if (articleNews.imageUrl?.isNotEmpty() == true) {
                 Glide.with(imageArticleNews.context)

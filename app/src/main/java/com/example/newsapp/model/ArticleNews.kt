@@ -4,6 +4,7 @@ import android.os.Parcelable
 import androidx.annotation.Keep
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import com.example.newsapp.utils.formatterTime
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
@@ -54,6 +55,9 @@ data class ArticleNews(
     @Expose
     val language: String
 ) : Serializable {
+    fun getFormattedTime() : String {
+        return formatterTime(pubDate)
+    }
     override fun hashCode(): Int {
         var result = title.hashCode()
         if(title.isNullOrEmpty() || keywords.isNullOrEmpty() || description.isNullOrEmpty() || creator.isNullOrEmpty() || imageUrl.isNullOrEmpty() || content.isNullOrEmpty() || videoUrl.isNullOrEmpty()){

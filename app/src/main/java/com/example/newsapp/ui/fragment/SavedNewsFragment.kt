@@ -3,6 +3,7 @@ package com.example.newsapp.ui.fragment
 import android.os.Bundle
 import android.view.Menu
 import android.view.View
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
@@ -11,7 +12,6 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
-import com.example.newsapp.adapter.ArticleNewsAdapter
 import com.example.newsapp.adapter.SavedArticleAdapter
 import com.example.newsapp.databinding.FragmentSavedNewsBinding
 import com.example.newsapp.viewmodel.NewsViewModel
@@ -92,10 +92,22 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         articleNewsAdapter.setOnItemClickListener(onItemClickListener)
 
         viewLifecycleOwner.lifecycleScope.launch {
-            newsViewModel.getAllSavedArticleFlow.collectLatest {
-                articleNewsAdapter.submitList(it)
+            newsViewModel.getAllSavedArticleFlow.collectLatest { article ->
+                if (article.isNullOrEmpty()) {
+                    startPageSavedArticles(true)
+                } else {
+                    startPageSavedArticles(false)
+                }
+                articleNewsAdapter.submitList(article)
             }
         }
+    }
+
+    private fun startPageSavedArticles(isVisible: Boolean) {
+        fragmentBinding?.savedIcon?.isVisible = isVisible
+        fragmentBinding?.namePage?.isVisible = isVisible
+        fragmentBinding?.descriptionPage?.isVisible = isVisible
+        fragmentBinding?.savedNewsRecyclerView?.isVisible = !isVisible
     }
 
     override fun onPrepareOptionsMenu(menu: Menu) {
