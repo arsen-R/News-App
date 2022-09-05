@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.fragment.SearchFragment">
+
     <com.google.android.material.progressindicator.LinearProgressIndicator
         android:id="@+id/progressBar"
         android:layout_width="match_parent"
@@ -26,41 +27,15 @@
         app:layout_constraintTop_toBottomOf="@id/progressBar"
         tools:listitem="@layout/news_list_item" />
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/messageNoResultFound"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="55dp"
-        android:text="@string/message_no_result_found"
-        android:textColor="#383838"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/searchArticleRecyclerView" />
-
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/messageModifySearch"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:text="@string/message_modify_search"
-        android:textColor="@color/dark_grey"
-        android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="@id/messageNoResultFound"
-        app:layout_constraintTop_toBottomOf="@id/messageNoResultFound" />
-
     <include
         android:id="@+id/errorMessage"
+        layout="@layout/item_error"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        layout="@layout/item_error"
+        android:layout_marginTop="25dp"
         android:visibility="invisible"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="25dp"/>
-
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

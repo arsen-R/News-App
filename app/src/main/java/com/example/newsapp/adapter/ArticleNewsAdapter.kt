@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.example.newsapp.R
 import com.example.newsapp.adapter.ArticleNewsAdapter.ArticleNewsViewHolder
 import com.example.newsapp.databinding.NewsListItemBinding
 import com.example.newsapp.model.ArticleNews
@@ -43,13 +45,15 @@ class ArticleNewsAdapter : PagingDataAdapter<ArticleNews, ArticleNewsViewHolder>
 
                 textPublishedNews.text = articleNews?.getFormattedTime()
 
-                if (articleNews?.imageUrl?.isNotEmpty() == true) {
+                if (articleNews?.imageUrl?.isNotBlank() == true) {
                     Glide.with(imageArticleNews.context)
                         .load(articleNews.imageUrl)
                         .fitCenter()
+                        .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                         .into(imageArticleNews)
                 } else {
-                    Glide.with(imageArticleNews.context).clear(imageArticleNews)
+                    Glide.with(imageArticleNews.context)
+                        .clear(imageArticleNews)
                 }
             }
         }

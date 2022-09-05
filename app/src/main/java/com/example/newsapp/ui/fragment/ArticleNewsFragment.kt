@@ -21,6 +21,7 @@ import com.example.newsapp.NewsApplication
 import com.example.newsapp.R
 import com.example.newsapp.databinding.FragmentArticleNewsBinding
 import com.example.newsapp.model.ArticleNews
+import com.example.newsapp.utils.Constants.EMAIL_ADDRESS
 import com.example.newsapp.viewmodel.NewsViewModel
 import com.example.newsapp.viewmodel.NewsViewModelFactory
 import com.google.android.material.snackbar.Snackbar
@@ -59,7 +60,6 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
 
         }
     }
-
     private var menuItem: MenuItem? = null
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.article_top_bar_menu, menu)
@@ -88,13 +88,6 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
             }
             R.id.go_to_original_web_page -> {
                 articleNews?.link?.let { goToOriginalWebPage(it) }
-                return true
-            }
-            R.id.send_feedback -> {
-                sendFeedback(
-                    arrayOf("arsen240302@gmail.com"),
-                    resources.getString(R.string.send_feedback)
-                )
                 return true
             }
         }
@@ -130,26 +123,12 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         } catch (e: ActivityNotFoundException) {
             Log.e("LogArticleNewsError", e.message.toString())
         }
-
     }
 
     private fun goToOriginalWebPage(link: String) {
         val webIntent = Intent(Intent.ACTION_VIEW, Uri.parse(link))
         try {
             startActivity(webIntent)
-        } catch (e: ActivityNotFoundException) {
-            Log.d("LogArticleNewsError", e.message.toString())
-        }
-    }
-
-    private fun sendFeedback(addresses: Array<String>, subject: String) {
-        val sendFeedback = Intent(Intent.ACTION_SENDTO).apply {
-            data = Uri.parse("mailto:")
-            putExtra(Intent.EXTRA_EMAIL, addresses)
-            putExtra(Intent.EXTRA_SUBJECT, subject)
-        }
-        try {
-            startActivity(sendFeedback)
         } catch (e: ActivityNotFoundException) {
             Log.d("LogArticleNewsError", e.message.toString())
         }
@@ -164,7 +143,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
     }
 
     override fun onDestroyView() {
-        fragmentBinding = null
         super.onDestroyView()
+        fragmentBinding = null
     }
 }

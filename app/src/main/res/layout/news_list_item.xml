@@ -15,9 +15,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
-            android:maxHeight="280dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
+            android:maxHeight="280dp"
             app:layout_constraintBottom_toTopOf="@id/textTitleNews"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,8 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/imageArticleNews"
-            tools:text="Марсохід NASA показав уламки космічного корабля на Червоній планеті - ВСВІТІ" />
+            tools:text="Марсохід NASA показав уламки космічного
+            корабля на Червоній планеті - ВСВІТІ" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textSourceName"

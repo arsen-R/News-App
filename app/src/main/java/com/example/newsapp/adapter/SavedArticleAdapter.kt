@@ -1,11 +1,15 @@
 package com.example.newsapp.adapter
 
 import android.view.LayoutInflater
+import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.example.newsapp.databinding.NewsListItemBinding
 import com.example.newsapp.model.ArticleNews
 import com.example.newsapp.utils.DiffCallBack
@@ -43,10 +47,11 @@ class SavedArticleAdapter : RecyclerView.Adapter<SavedArticleAdapter.SavedArticl
 
             textPublishedNews.text = articleNews.getFormattedTime()
 
-            if (articleNews.imageUrl?.isNotEmpty() == true) {
+            if (articleNews.imageUrl?.isNotBlank() == true) {
                 Glide.with(imageArticleNews.context)
                     .load(articleNews.imageUrl)
                     .fitCenter()
+                    .diskCacheStrategy(DiskCacheStrategy.RESOURCE)
                     .into(imageArticleNews)
             } else {
                 Glide.with(imageArticleNews.context).clear(imageArticleNews)

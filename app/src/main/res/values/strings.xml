@@ -22,6 +22,7 @@
     <string name="message_modify_search">Please modify your search</string>
     <string name="network_error">No Connection</string>
     <string name="try_again">Try Again</string>
+    <string name="contact_us">Contact us</string>
 
     <string name="business">Business</string>
     <string name="entertainment">Entertainment</string>

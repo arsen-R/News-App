@@ -1,10 +1,7 @@
 package com.example.newsapp.ui.fragment
 
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -24,7 +21,6 @@ import com.example.newsapp.viewmodel.NewsViewModelFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
-
 class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
     private var fragmentBinding: FragmentRecentsNewsBinding? = null
     private val newsAdapter: ArticleNewsAdapter by lazy { ArticleNewsAdapter() }
@@ -33,7 +29,7 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
     }
     private val onItemClickListener = View.OnClickListener { view: View ->
         val viewHolder = view.tag as RecyclerView.ViewHolder
-        val position = viewHolder.bindingAdapterPosition
+        val position = viewHolder.layoutPosition
 
         val articleNews = newsAdapter.snapshot()[position]
         val action =
@@ -60,7 +56,7 @@ class RecentNewsFragment : Fragment(R.layout.fragment_recents_news) {
                 recentNewsRecyclerView.isVisible = state.refresh is LoadState.NotLoading
                 progressBar.isVisible = state.refresh is LoadState.Loading
                 errorMessage.textErrorMessage.isVisible = state.refresh is LoadState.Error
-                if (state.source.refresh is LoadState.NotLoading &&  state.append.endOfPaginationReached) {
+                if (state.source.refresh is LoadState.NotLoading && state.append.endOfPaginationReached) {
                     if (newsAdapter.itemCount < 1) {
                         errorMessage.textErrorMessage.isVisible = true
                         recentNewsRecyclerView.isVisible = false

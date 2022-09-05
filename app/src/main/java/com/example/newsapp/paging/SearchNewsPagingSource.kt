@@ -27,7 +27,7 @@ class SearchNewsPagingSource(
             val response = apiNewsService.searchArticleNews(query, country, pageNumber)
             if (response.isSuccessful) {
                 val articleNews = response.body()?.articleNews
-                val prevPageNumber = if (pageNumber > 1) pageNumber - 1 else null
+                val prevPageNumber = if (pageNumber == 0) null else pageNumber - 1
                 val nextPageNumber = if (articleNews?.isEmpty()!!) null else pageNumber + 1
                 LoadResult.Page(articleNews, prevPageNumber, nextPageNumber)
             } else {

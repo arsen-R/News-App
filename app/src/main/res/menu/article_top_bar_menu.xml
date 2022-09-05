@@ -23,12 +23,4 @@
         android:iconTint="?attr/iconTint"
         android:title="@string/go_to_original_web_page"
         app:showAsAction="always" />
-
-    <item
-        android:id="@+id/send_feedback"
-        android:enabled="true"
-        android:icon="@drawable/ic_feedback_24"
-        android:iconTint="?attr/iconTint"
-        android:title="@string/send_feedback"
-        app:showAsAction="always" />
 </menu>
