@@ -1,7 +1,6 @@
 package com.example.newsapp.viewmodel
 
-import android.util.Log
-import com.example.newsapp.repository.NewsRepository
+import com.example.newsapp.repository.NewsRepositoryImpl
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
@@ -10,7 +9,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.flatMapLatest
 
-class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
+class NewsViewModel(private val repository: NewsRepositoryImpl) : ViewModel() {
     private val categoryFlow: MutableStateFlow<String?> = MutableStateFlow("top")
     private val countryFlow: MutableStateFlow<String?> = MutableStateFlow("")
     private val searchQueryFlow: MutableStateFlow<String?> = MutableStateFlow("")
