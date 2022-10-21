@@ -32,7 +32,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
         val viewHolder = view.tag as RecyclerView.ViewHolder
         val position = viewHolder.layoutPosition
 
-        val articleNews = articleNewsAdapter.getArticleNewsItem(position)
+        val articleNews = articleNewsAdapter.currentList[position]
 
         val action =
             SavedNewsFragmentDirections.actionSavedNewsFragmentToArticleNewsFragment(articleNews)
@@ -59,7 +59,7 @@ class SavedNewsFragment : Fragment(R.layout.fragment_saved_news) {
 
         override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
             val position = viewHolder.layoutPosition
-            val articleNews = articleNewsAdapter.getArticleNewsItem(position)
+            val articleNews = articleNewsAdapter.currentList[position]
             newsViewModel.deleteArticle(articleNews.title)
             Snackbar.make(
                 view!!,

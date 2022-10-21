@@ -34,7 +34,7 @@
     <string name="sports">Sports</string>
     <string name="technology">Technology</string>
 
-    <string name="language_region_interested">Languages &amp; Regions of interest</string>
+    <string name="region_interested">Regions of interest</string>
     <string name="general">General</string>
 
     <string name="dark_mode">Dark Theme</string>
@@ -43,4 +43,11 @@
     <string name="system_default">System Default</string>
 
     <string name="description_saved_article_page">Saved articles are stored here. Tap the icon on any article to add it to your collection.</string>
+
+    <string name="country_entries_usa">The United States</string>
+    <string name="country_entries_uk">The United Kingdom</string>
+    <string name="country_entries_ukraine">Ukraine</string>
+    <string name="country_entries_france">France</string>
+    <string name="country_entries_germany">Germany</string>
+    <string name="country_entries_poland">Poland</string>
 </resources>

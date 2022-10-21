@@ -97,7 +97,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         articleNews?.let { newsViewModel.saveArticle(it) }
         menuItem?.icon = ContextCompat.getDrawable(activity?.applicationContext!!, R.drawable.ic_bookmark_24)
         Snackbar.make(
-            view!!, resources.getString(R.string.save_article),
+            requireView(), resources.getString(R.string.save_article),
             Snackbar.LENGTH_LONG
         ).show()
     }
@@ -105,7 +105,7 @@ class ArticleNewsFragment : Fragment(R.layout.fragment_article_news) {
         articleNews?.title?.let { newsViewModel.deleteArticle(it) }
         menuItem?.icon = ContextCompat.getDrawable(activity?.applicationContext!!, R.drawable.ic_bookmark_border_24)
         Snackbar.make(
-            view!!, resources.getString(R.string.delete_article),
+            requireView(), resources.getString(R.string.delete_article),
             Snackbar.LENGTH_LONG
         ).setAction(resources.getString(R.string.undo)) {
             savedArticle()

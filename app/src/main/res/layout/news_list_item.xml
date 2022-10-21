@@ -12,14 +12,15 @@
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/imageArticleNews"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:adjustViewBounds="true"
             android:focusable="true"
+            android:scaleType="centerCrop"
+            android:maxWidth="100dp"
             android:focusableInTouchMode="true"
-            android:maxHeight="280dp"
-            app:layout_constraintBottom_toTopOf="@id/textTitleNews"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/textTitleNews"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,10 +30,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imageArticleNews"
-            tools:text="Марсохід NASA показав уламки космічного
-            корабля на Червоній планеті - ВСВІТІ" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageArticleNews"
+            tools:text="Марсохід NASA показав уламки космічного корабля на Червоній планеті - ВСВІТІ" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textSourceName"
@@ -43,7 +43,7 @@
             android:text="NASA"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@id/textPublishedNews"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageArticleNews"
             app:layout_constraintTop_toBottomOf="@id/textTitleNews" />
 
         <androidx.appcompat.widget.AppCompatTextView

@@ -1,6 +1,5 @@
 package com.example.newsapp.adapter
 
-import android.text.format.DateUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -8,7 +7,6 @@ import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.example.newsapp.R
 import com.example.newsapp.adapter.ArticleNewsAdapter.ArticleNewsViewHolder
 import com.example.newsapp.databinding.NewsListItemBinding
 import com.example.newsapp.model.ArticleNews

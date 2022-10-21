@@ -1,31 +1,18 @@
 package com.example.newsapp.adapter
 
 import android.view.LayoutInflater
-import android.view.RoundedCorner
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.AsyncListDiffer
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.load.resource.bitmap.RoundedCorners
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade
 import com.example.newsapp.databinding.NewsListItemBinding
 import com.example.newsapp.model.ArticleNews
 import com.example.newsapp.utils.DiffCallBack
 
-class SavedArticleAdapter : RecyclerView.Adapter<SavedArticleAdapter.SavedArticleViewHolder>(){
-    private val articleListDiffer: AsyncListDiffer<ArticleNews> =
-        AsyncListDiffer(this, DiffCallBack)
-
-    fun submitList(data: List<ArticleNews>) {
-        articleListDiffer.submitList(data)
-    }
-
-    fun getArticleNewsItem(position: Int): ArticleNews {
-        return articleListDiffer.currentList[position]
-    }
-
+class SavedArticleAdapter : ListAdapter<ArticleNews, SavedArticleAdapter.SavedArticleViewHolder>(DiffCallBack){
     private var onClickListener: View.OnClickListener? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SavedArticleViewHolder {
@@ -35,7 +22,7 @@ class SavedArticleAdapter : RecyclerView.Adapter<SavedArticleAdapter.SavedArticl
     }
 
     override fun onBindViewHolder(holder: SavedArticleViewHolder, position: Int) {
-        val articleNews = getArticleNewsItem(position)
+        val articleNews = getItem(position)
 
         with(holder.binding) {
             textTitleNews.text = articleNews.title
@@ -71,6 +58,5 @@ class SavedArticleAdapter : RecyclerView.Adapter<SavedArticleAdapter.SavedArticl
         }
     }
 
-    override fun getItemCount(): Int = articleListDiffer.currentList.size
-
+    //override fun getItemCount(): Int = articleListDiffer.currentList.size
 }

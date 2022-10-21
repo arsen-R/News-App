@@ -1,14 +1,20 @@
 <resources>
     <string-array name="country_entries">
-        <item>The United States</item>
-        <item>The United Kingdom</item>
-        <item>Україна</item>
+        <item>@string/country_entries_usa</item>
+        <item>@string/country_entries_uk</item>
+        <item>@string/country_entries_ukraine</item>
+        <item>@string/country_entries_france</item>
+        <item>@string/country_entries_germany</item>
+        <item>@string/country_entries_poland</item>
     </string-array>
 
     <string-array name="country_values">
         <item>us</item>
         <item>gb</item>
         <item>ua</item>
+        <item>fr</item>
+        <item>de</item>
+        <item>pl</item>
     </string-array>
 
     <string-array name="dark_theme_entries">

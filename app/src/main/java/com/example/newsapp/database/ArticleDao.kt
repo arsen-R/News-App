@@ -1,6 +1,5 @@
 package com.example.newsapp.database
 
-import android.icu.text.CaseMap
 import androidx.room.*
 import com.example.newsapp.model.ArticleNews
 import kotlinx.coroutines.flow.Flow
